@@ -1,0 +1,2906 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>产品规划时间轴</title>
+  <style>
+    :root,
+    :root[data-theme="pink"] {
+      --bg: #fff5fb;
+      --panel: #fffdfd;
+      --line: #efc9d9;
+      --line-soft: #f8dde8;
+      --text: #6f3552;
+      --muted: #9d6a83;
+      --blue: #f27eb4;
+      --green: #f7a9c8;
+      --orange: #ff9fb3;
+      --red: #ff739d;
+      --purple: #d88bf2;
+      --shadow: 0 12px 30px rgba(233, 130, 176, 0.16);
+      --bg-overlay-a: rgba(255, 215, 232, 0.7);
+      --bg-overlay-b: rgba(255, 231, 240, 0.85);
+      --bg-start: #fff8fc;
+      --bg-end: #fff5fb;
+      --title: #c74382;
+      --accent: #e85b9a;
+      --chip-bg: #fff6fb;
+      --chip-active-border: #f5a9c7;
+      --chip-active-bg: #ffd9ea;
+      --chip-active-text: #c74382;
+      --button-hover-border: #e79abc;
+      --button-hover-bg: #fff2f8;
+      --panel-soft: #fff6fb;
+      --panel-item: #fff7fb;
+      --panel-item-active: #ffe0ee;
+      --panel-item-active-border: #f1a4c4;
+      --primary-btn: #ff82b5;
+      --primary-btn-hover: #f0629c;
+      --relation-line: #db8cad;
+      --event-neutral: rgba(199, 67, 130, 0.22);
+      --event-important: rgba(255, 115, 157, 0.85);
+      --event-us: rgba(242, 126, 180, 0.72);
+      --event-jp: rgba(216, 139, 242, 0.72);
+      --event-kr: rgba(247, 169, 200, 0.82);
+      --event-label-bg: rgba(255, 251, 253, 0.96);
+      --refresh-note: #c74382;
+    }
+
+    :root[data-theme="sky"] {
+      --bg: #eef8ff;
+      --panel: #ffffff;
+      --line: #c6ddf2;
+      --line-soft: #ddecf9;
+      --text: #2d5d83;
+      --muted: #6b8aa5;
+      --blue: #71b8f5;
+      --green: #9ad8ff;
+      --orange: #7cd4f8;
+      --red: #4aa8ef;
+      --purple: #97b6ff;
+      --shadow: 0 12px 30px rgba(96, 167, 223, 0.16);
+      --bg-overlay-a: rgba(207, 236, 255, 0.85);
+      --bg-overlay-b: rgba(228, 245, 255, 0.95);
+      --bg-start: #f6fbff;
+      --bg-end: #eef8ff;
+      --title: #3d90d0;
+      --accent: #51a9ee;
+      --chip-bg: #f3fbff;
+      --chip-active-border: #9cd0f5;
+      --chip-active-bg: #dff3ff;
+      --chip-active-text: #2f83c4;
+      --button-hover-border: #9ccdf0;
+      --button-hover-bg: #f1faff;
+      --panel-soft: #f4fbff;
+      --panel-item: #f5fbff;
+      --panel-item-active: #dff3ff;
+      --panel-item-active-border: #9ccff1;
+      --primary-btn: #69b7f1;
+      --primary-btn-hover: #4da6ea;
+      --relation-line: #8cb9dc;
+      --event-neutral: rgba(74, 168, 239, 0.24);
+      --event-important: rgba(74, 168, 239, 0.75);
+      --event-us: rgba(74, 168, 239, 0.72);
+      --event-jp: rgba(151, 182, 255, 0.72);
+      --event-kr: rgba(154, 216, 255, 0.9);
+      --event-label-bg: rgba(247, 252, 255, 0.96);
+      --refresh-note: #2f83c4;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top left, var(--bg-overlay-a), transparent 28%),
+        radial-gradient(circle at top right, var(--bg-overlay-b), transparent 34%),
+        linear-gradient(180deg, var(--bg-start) 0%, var(--bg-end) 100%);
+      color: var(--text);
+      font-family: Inter, "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+    }
+
+    .app {
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .shell {
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: 26px;
+      line-height: 1.2;
+      letter-spacing: 0;
+      color: var(--title);
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .controls {
+      display: flex;
+      align-items: end;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    input[type="date"], input[type="range"], select {
+      height: 38px;
+      min-width: 154px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fffafd;
+      color: var(--text);
+      padding: 0 10px;
+      font: inherit;
+      font-size: 14px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    }
+
+    input[type="range"] {
+      width: 172px;
+      min-width: 172px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      accent-color: var(--accent);
+    }
+
+    .zoom-label {
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 760;
+    }
+
+    .zoom-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .zoom-chip {
+      height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      background: var(--chip-bg);
+    }
+
+    .zoom-chip.active {
+      border-color: var(--chip-active-border);
+      background: var(--chip-active-bg);
+      color: var(--chip-active-text);
+    }
+
+    .history-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .share-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .history-btn[disabled] {
+      cursor: not-allowed;
+      opacity: 0.45;
+      background: #f8fafc;
+    }
+
+    button {
+      height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fffafd;
+      color: var(--text);
+      padding: 0 12px;
+      font: inherit;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(233, 130, 176, 0.08);
+    }
+
+    button:hover {
+      border-color: var(--button-hover-border);
+      background: var(--button-hover-bg);
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: 160px minmax(0, 1fr);
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      overflow: auto;
+    }
+
+    .left-head,
+    .timeline-head {
+      min-height: 92px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel-soft);
+    }
+
+    .left-head {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 14px 12px;
+      border-right: 1px solid var(--line);
+      position: sticky;
+      left: 0;
+      z-index: 6;
+    }
+
+    .left-title {
+      font-size: 15px;
+      font-weight: 750;
+    }
+
+    .left-meta {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .timeline-head {
+      position: relative;
+      overflow: hidden;
+      min-width: var(--timeline-width, 1200px);
+      position: sticky;
+      top: 0;
+      z-index: 5;
+    }
+
+    .month-row,
+    .day-row {
+      position: relative;
+      height: 46px;
+    }
+
+    .year-cell,
+    .month-cell,
+    .day-cell {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      border-left: 1px solid var(--line-soft);
+      display: flex;
+      align-items: center;
+      padding-left: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .year-cell {
+      justify-content: center;
+      padding-left: 0;
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 820;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .month-cell {
+      color: var(--text);
+      font-weight: 750;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .day-cell {
+      top: 26px;
+      bottom: auto;
+      height: 20px;
+      border-left-color: transparent;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .rows {
+      display: contents;
+    }
+
+    .product-cell,
+    .bar-cell {
+      min-height: 128px;
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .product-cell {
+      padding: 14px 12px;
+      border-right: 1px solid var(--line);
+      background: #fffdfd;
+      position: sticky;
+      left: 0;
+      z-index: 4;
+    }
+
+    .product-cell[draggable="true"] {
+      cursor: grab;
+    }
+
+    .product-cell.drag-over {
+      background: var(--control-bg);
+      box-shadow: inset 0 0 0 2px var(--primary);
+    }
+
+    .product-cell.dragging {
+      opacity: 0.55;
+    }
+
+    .product-name {
+      font-size: 14px;
+      font-weight: 760;
+      margin-bottom: 4px;
+    }
+
+    .product-name.child {
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .product-name.child::before {
+      content: "";
+      position: absolute;
+      left: 2px;
+      top: 8px;
+      width: 8px;
+      height: 1px;
+      background: var(--relation-line);
+    }
+
+    .product-market {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .product-price {
+      margin-top: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text);
+      font-size: 11px;
+      font-weight: 720;
+    }
+
+    .price-band-tag {
+      display: inline-flex;
+      align-items: center;
+      height: 18px;
+      padding: 0 6px;
+      border-radius: 999px;
+      background: var(--control-bg);
+      color: var(--primary);
+      font-size: 10px;
+      font-weight: 780;
+    }
+
+    .product-relation {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .bar-cell {
+      position: relative;
+      overflow: hidden;
+      min-width: var(--timeline-width, 1200px);
+    }
+
+    .grid-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: var(--line-soft);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .segment {
+      position: absolute;
+      height: 24px;
+      min-width: 6px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      padding: 0 6px;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 1;
+      box-shadow: 0 5px 14px rgba(15, 23, 42, 0.14);
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      z-index: 2;
+    }
+
+    .segment.compact {
+      padding: 0 4px;
+      font-size: 9px;
+    }
+
+    .segment.micro {
+      padding: 0 5px;
+      justify-content: center;
+      font-size: 9px;
+      min-width: 40px;
+      overflow: visible;
+    }
+
+    .segment.milestone {
+      min-width: 54px;
+      border-radius: 999px;
+      box-shadow: 0 5px 14px rgba(15, 23, 42, 0.18), 0 0 0 2px rgba(255, 255, 255, 0.8);
+      z-index: 4;
+    }
+
+    .segment-date-label {
+      position: absolute;
+      height: 14px;
+      max-width: 72px;
+      padding: 0 4px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid var(--line-soft);
+      color: var(--text);
+      font-size: 10px;
+      font-weight: 720;
+      line-height: 13px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transform: translateY(-2px);
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .segment.blue { background: var(--blue); }
+    .segment.green { background: var(--green); }
+    .segment.orange { background: var(--orange); }
+    .segment.purple { background: var(--purple); }
+    .segment.red { background: var(--red); }
+
+    .event-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      transform: translateX(-1px);
+      background: repeating-linear-gradient(
+        to bottom,
+        var(--event-neutral) 0,
+        var(--event-neutral) 7px,
+        transparent 7px,
+        transparent 13px
+      );
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .event-line.important {
+      width: 3px;
+      transform: translateX(-1.5px);
+      background: repeating-linear-gradient(
+        to bottom,
+        var(--event-important) 0,
+        var(--event-important) 8px,
+        transparent 8px,
+        transparent 14px
+      );
+    }
+
+    .event-line.us {
+      background: repeating-linear-gradient(to bottom, var(--event-us) 0, var(--event-us) 7px, transparent 7px, transparent 13px);
+    }
+
+    .event-line.jp {
+      background: repeating-linear-gradient(to bottom, var(--event-jp) 0, var(--event-jp) 7px, transparent 7px, transparent 13px);
+    }
+
+    .event-line.kr {
+      background: repeating-linear-gradient(to bottom, var(--event-kr) 0, var(--event-kr) 7px, transparent 7px, transparent 13px);
+    }
+
+    .event-label {
+      position: absolute;
+      top: 4px;
+      transform: translateX(6px);
+      border-radius: 6px;
+      background: var(--event-label-bg);
+      border: 1px solid var(--line);
+      color: var(--text);
+      padding: 3px 6px;
+      font-size: 11px;
+      font-weight: 780;
+      white-space: nowrap;
+      z-index: 4;
+    }
+
+    .event-label.minor {
+      opacity: 0.82;
+      font-weight: 700;
+    }
+
+    .toolbar-note {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .refresh-note {
+      color: var(--refresh-note);
+      font-weight: 700;
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .workspace.editor-collapsed {
+      grid-template-columns: minmax(0, 1fr) 0;
+    }
+
+    .editor {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      padding: 16px;
+      position: sticky;
+      top: 16px;
+    }
+
+    .workspace.editor-collapsed .editor {
+      display: none;
+    }
+
+    .editor-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .editor-head h2 {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .editor-head p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .product-list {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .product-list-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .product-list-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .mini-btn {
+      height: 26px;
+      padding: 0 10px;
+      border-radius: 999px;
+      font-size: 12px;
+    }
+
+    .product-list-items {
+      display: grid;
+      gap: 8px;
+    }
+
+    .product-item-row {
+      display: grid;
+      grid-template-columns: 22px minmax(0, 1fr);
+      gap: 8px;
+      align-items: start;
+    }
+
+    .product-item-row.dragging {
+      opacity: 0.45;
+    }
+
+    .product-item-row.drag-over .product-item {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 22%, transparent);
+    }
+
+    .product-export-check {
+      margin-top: 11px;
+      width: 16px;
+      height: 16px;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    .product-item {
+      width: 100%;
+      text-align: left;
+      height: auto;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: var(--panel-item);
+    }
+
+    .product-item.active {
+      border-color: var(--panel-item-active-border);
+      background: var(--panel-item-active);
+    }
+
+    .product-item-name {
+      font-size: 13px;
+      font-weight: 760;
+      color: var(--text);
+    }
+
+    .product-item-meta {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .product-item-meta.sub {
+      padding-left: 12px;
+    }
+
+    .editor-form {
+      display: grid;
+      gap: 12px;
+    }
+
+    .task-list {
+      display: grid;
+      gap: 10px;
+      max-height: 420px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .editor-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .editor-form input[type="text"],
+    .editor-form input[type="date"],
+    .editor-form select,
+    .editor-form textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fffafd;
+      color: var(--text);
+      padding: 10px 12px;
+      font: inherit;
+      font-size: 14px;
+    }
+
+    .editor-form textarea {
+      min-height: 78px;
+      resize: vertical;
+    }
+
+    .task-box {
+      border: 1px solid var(--line-soft);
+      border-radius: 14px;
+      background: var(--panel-item);
+      padding: 10px 12px;
+    }
+
+    .task-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .task-title {
+      font-size: 13px;
+      font-weight: 760;
+    }
+
+    .task-index {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .task-tools {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .task-main {
+      min-width: 0;
+      display: grid;
+      gap: 4px;
+    }
+
+    .task-summary {
+      color: var(--muted);
+      font-size: 11px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .delete-task-btn {
+      height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      background: #fffafd;
+    }
+
+    .task-body {
+      display: none;
+      padding-top: 10px;
+    }
+
+    .task-box.expanded .task-body {
+      display: block;
+    }
+
+    .task-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .editor-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .copy-tasks-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: end;
+    }
+
+    .primary-btn {
+      background: var(--primary-btn);
+      border-color: var(--primary-btn);
+      color: #fff;
+    }
+
+    .primary-btn:hover {
+      background: var(--primary-btn-hover);
+      border-color: var(--primary-btn-hover);
+    }
+
+    .milestones {
+      margin-top: 16px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      padding: 16px;
+    }
+
+    .milestone-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .milestone-head h2 {
+      margin: 0;
+      font-size: 16px;
+      letter-spacing: 0;
+    }
+
+    .legend {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .legend i {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .promo-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .promo-card {
+      border: 1px solid var(--line-soft);
+      border-radius: 8px;
+      padding: 12px;
+      min-height: 86px;
+      background: #fbfcfe;
+    }
+
+    .promo-country {
+      font-size: 13px;
+      font-weight: 780;
+      margin-bottom: 8px;
+    }
+
+    .promo-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .empty {
+      padding: 40px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 920px) {
+      .app {
+        padding: 14px;
+      }
+
+      .topbar {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .controls {
+        justify-content: flex-start;
+      }
+
+      .board {
+        grid-template-columns: 140px minmax(720px, 1fr);
+        overflow-x: auto;
+      }
+
+      .promo-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .workspace {
+        grid-template-columns: 1fr;
+      }
+
+      .editor {
+        position: static;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .editor-grid,
+      .task-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .promo-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <div class="shell">
+      <section class="topbar">
+        <div>
+          <h1>产品规划时间轴</h1>
+        </div>
+        <div class="controls">
+          <label>
+            开始时间
+            <input id="startDate" type="date" value="2026-04-01">
+          </label>
+          <label>
+            结束时间
+            <input id="endDate" type="date" value="2026-12-31">
+          </label>
+          <label>
+            市场
+            <select id="marketFilter">
+              <option value="all">全部市场</option>
+              <option value="中国">中国</option>
+              <option value="美国">美国</option>
+              <option value="日本">日本</option>
+              <option value="韩国">韩国</option>
+            </select>
+          </label>
+          <label>
+            配色系统
+            <select id="themePicker">
+              <option value="pink">粉嫩粉白</option>
+              <option value="sky" selected>清爽天蓝</option>
+            </select>
+          </label>
+          <label>
+            日期缩放 <span id="zoomValue" class="zoom-label">2年视图</span>
+            <input id="zoomRange" type="range" min="1" max="24" step="1" value="2">
+          </label>
+          <div class="zoom-group" aria-label="常用缩放">
+            <button class="zoom-chip" data-zoom="1" type="button">3年</button>
+            <button class="zoom-chip active" data-zoom="2" type="button">2年</button>
+            <button class="zoom-chip" data-zoom="3" type="button">年度</button>
+            <button class="zoom-chip" data-zoom="6" type="button">月</button>
+            <button class="zoom-chip" data-zoom="12" type="button">双周</button>
+            <button class="zoom-chip" data-zoom="20" type="button">周</button>
+          </div>
+          <div class="history-group" aria-label="撤销重做">
+            <button id="undoBtn" class="history-btn" type="button" disabled>Undo</button>
+            <button id="redoBtn" class="history-btn" type="button" disabled>Redo</button>
+          </div>
+          <div class="share-group" aria-label="导入导出">
+            <button id="exportBtn" type="button">导出数据</button>
+            <button id="importBtn" type="button">导入数据</button>
+            <button id="copyGanttBtn" type="button">复制甘特图</button>
+            <input id="importFileInput" type="file" accept="application/json,.json" hidden>
+          </div>
+          <button id="refreshPromosBtn" type="button">Refresh 节点</button>
+          <button id="toggleEditorBtn" type="button">收起录入</button>
+          <button id="resetBtn" type="button">重置视图</button>
+        </div>
+      </section>
+      <div class="toolbar-note">
+        <span>拖动底部横向滚动条可看全年；缩放用于在全年视角和周视角之间切换。</span>
+        <span id="refreshNote" class="refresh-note"></span>
+        <span id="storageNote" class="refresh-note"></span>
+      </div>
+
+      <section id="workspace" class="workspace">
+        <div id="captureArea">
+          <section class="board" aria-label="产品甘特时间轴">
+            <div class="left-head">
+              <div class="left-title">产品</div>
+              <div id="rangeMeta" class="left-meta"></div>
+            </div>
+            <div class="timeline-head">
+              <div id="monthRow" class="month-row"></div>
+              <div id="dayRow" class="day-row"></div>
+            </div>
+            <div id="rows" class="rows"></div>
+          </section>
+
+          <section class="milestones">
+            <div class="milestone-head">
+              <h2>范围内主要促销节点</h2>
+              <div class="legend">
+                <span><i style="background:#dc2626"></i>中国</span>
+                <span><i style="background:#2563eb"></i>美国</span>
+                <span><i style="background:#7c3aed"></i>日本</span>
+                <span><i style="background:#0f9f6e"></i>韩国</span>
+              </div>
+            </div>
+            <div id="promoGrid" class="promo-grid"></div>
+          </section>
+        </div>
+
+        <aside class="editor" aria-label="产品录入面板">
+          <div class="editor-head">
+            <div>
+              <h2>产品录入</h2>
+              <p>直接录入产品信息和生命周期节点，先做前端原型。</p>
+            </div>
+          </div>
+          <div class="product-list">
+            <div class="product-list-head">
+              <span>已录入产品</span>
+              <div class="product-list-actions">
+                <span id="productCount"></span>
+                <button id="newProductBtn" class="mini-btn" type="button">新建产品</button>
+              </div>
+            </div>
+            <div id="productList" class="product-list-items"></div>
+          </div>
+          <form id="editorForm" class="editor-form">
+            <div class="editor-grid">
+              <label>
+                产品名
+                <input id="formProductName" type="text" value="">
+              </label>
+              <label>
+                市场
+                <select id="formMarket">
+                  <option value="中国">中国</option>
+                  <option value="美国">美国</option>
+                  <option value="日本">日本</option>
+                  <option value="韩国">韩国</option>
+                </select>
+              </label>
+              <label>
+                阶段
+                <select id="formPhase">
+                  <option value="规划中">规划中</option>
+                  <option value="概念验证">概念验证</option>
+                  <option value="研发中">研发中</option>
+                  <option value="上市准备">上市准备</option>
+                  <option value="已上市">已上市</option>
+                </select>
+              </label>
+              <label>
+                价格
+                <input id="formPrice" type="number" min="0" step="1" value="" placeholder="例如 999">
+              </label>
+              <label>
+                价位带
+                <select id="formPriceBand">
+                  <option value="">未分价位带</option>
+                  <option value="入门">入门</option>
+                  <option value="主流">主流</option>
+                  <option value="中高端">中高端</option>
+                  <option value="高端">高端</option>
+                  <option value="旗舰">旗舰</option>
+                </select>
+              </label>
+              <label>
+                产品属性
+                <select id="formProductType">
+                  <option value="主产品">原型信息-主产品</option>
+                  <option value="地区改款">地区改款</option>
+                  <option value="配件">配件</option>
+                </select>
+              </label>
+              <label>
+                关联产品
+                <select id="formParentProduct">
+                  <option value="">无</option>
+                </select>
+              </label>
+              <label>
+                补充说明
+                <input id="formAttribute" type="text" value="">
+              </label>
+            </div>
+
+            <div class="copy-tasks-row">
+              <label>
+                复制节点来源
+                <select id="copyTasksSource">
+                  <option value="">选择产品</option>
+                </select>
+              </label>
+              <button id="copyTasksBtn" type="button">复制节点</button>
+            </div>
+
+            <div id="taskList" class="task-list"></div>
+
+            <label>
+              备注
+              <textarea id="formNote"></textarea>
+            </label>
+
+            <div class="editor-actions">
+              <button id="saveProductBtn" class="primary-btn" type="button">保存产品</button>
+              <button id="addTaskBtn" type="button">新增生命周期节点</button>
+              <button id="clearEditorBtn" type="button">重置当前产品</button>
+              <button id="deleteProductBtn" type="button">删除当前产品</button>
+            </div>
+          </form>
+        </aside>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const dayMs = 24 * 60 * 60 * 1000;
+    const colors = {
+      "中国": "red",
+      "美国": "blue",
+      "日本": "purple",
+      "韩国": "green"
+    };
+    const taskTemplates = [
+      { name: "立项", lane: 0 },
+      { name: "KOL试玩", lane: 1 },
+      { name: "首销发货", lane: 0 }
+    ];
+    const defaultTaskNames = taskTemplates.map((template) => template.name);
+
+    const products = [];
+
+    let promos = [];
+    let promoRefreshStamp = "";
+
+    const promoOverrides = {
+      primeDay: {
+        2025: "2025-07-08"
+      },
+      chuseok: {
+        2026: "2026-09-25"
+      }
+    };
+
+    const defaultEditorProduct = {
+      name: "",
+      market: "中国",
+      productType: "主产品",
+      parentProduct: "",
+      attribute: "",
+      phase: "规划中",
+      price: "",
+      priceBand: "",
+      note: "",
+      tasks: [
+        { name: "立项", lane: 0, start: "", end: "", startNode: "", endNode: "" },
+        { name: "KOL试玩", lane: 1, start: "", end: "", startNode: "", endNode: "" },
+        { name: "首销发货", lane: 0, start: "", end: "", startNode: "", endNode: "" }
+      ]
+    };
+
+    const startInput = document.getElementById("startDate");
+    const endInput = document.getElementById("endDate");
+    const marketFilter = document.getElementById("marketFilter");
+    const themePicker = document.getElementById("themePicker");
+    const zoomRange = document.getElementById("zoomRange");
+    const zoomValue = document.getElementById("zoomValue");
+    const resetBtn = document.getElementById("resetBtn");
+    const refreshPromosBtn = document.getElementById("refreshPromosBtn");
+    const toggleEditorBtn = document.getElementById("toggleEditorBtn");
+    const exportBtn = document.getElementById("exportBtn");
+    const importBtn = document.getElementById("importBtn");
+    const copyGanttBtn = document.getElementById("copyGanttBtn");
+    const importFileInput = document.getElementById("importFileInput");
+    const undoBtn = document.getElementById("undoBtn");
+    const redoBtn = document.getElementById("redoBtn");
+    const zoomChips = [...document.querySelectorAll(".zoom-chip")];
+    const monthRow = document.getElementById("monthRow");
+    const dayRow = document.getElementById("dayRow");
+    const rows = document.getElementById("rows");
+    const promoGrid = document.getElementById("promoGrid");
+    const rangeMeta = document.getElementById("rangeMeta");
+    const board = document.querySelector(".board");
+    const editorForm = document.getElementById("editorForm");
+    const taskList = document.getElementById("taskList");
+    const addTaskBtn = document.getElementById("addTaskBtn");
+    const copyTasksSource = document.getElementById("copyTasksSource");
+    const copyTasksBtn = document.getElementById("copyTasksBtn");
+    const newProductBtn = document.getElementById("newProductBtn");
+    const saveProductBtn = document.getElementById("saveProductBtn");
+    const clearEditorBtn = document.getElementById("clearEditorBtn");
+    const deleteProductBtn = document.getElementById("deleteProductBtn");
+    const productList = document.getElementById("productList");
+    const productCount = document.getElementById("productCount");
+    const formProductName = document.getElementById("formProductName");
+    const formMarket = document.getElementById("formMarket");
+    const formPhase = document.getElementById("formPhase");
+    const formPrice = document.getElementById("formPrice");
+    const formPriceBand = document.getElementById("formPriceBand");
+    const formProductType = document.getElementById("formProductType");
+    const formParentProduct = document.getElementById("formParentProduct");
+    const formAttribute = document.getElementById("formAttribute");
+    const formNote = document.getElementById("formNote");
+    const refreshNote = document.getElementById("refreshNote");
+    const storageNote = document.getElementById("storageNote");
+    const storageKey = "product-timeline-gantt-state-v1";
+    const workspace = document.getElementById("workspace");
+    let themePreferenceSet = false;
+    let zoomPreferenceSet = false;
+    let editorCollapsed = false;
+    let exportSelectedProducts = [];
+    let draggedProductIndex = -1;
+    let editorTargetIndex = -1;
+    let expandedTaskIndex = 0;
+    const historyStack = [];
+    const futureStack = [];
+
+    function parseDate(value) {
+      return new Date(`${value}T00:00:00`);
+    }
+
+    function formatDate(date) {
+      return date.toISOString().slice(0, 10);
+    }
+
+    function formatCn(value) {
+      const date = parseDate(value);
+      return `${date.getMonth() + 1}/${date.getDate()}`;
+    }
+
+    function formatGanttDate(value) {
+      const date = parseDate(value);
+      if (Number.isNaN(date.getTime())) {
+        return "";
+      }
+      return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
+    }
+
+    function isoDate(year, month, day) {
+      return `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+    }
+
+    function nthWeekdayOfMonth(year, monthIndex, weekday, nth) {
+      const date = new Date(year, monthIndex, 1);
+      let count = 0;
+      while (date.getMonth() === monthIndex) {
+        if (date.getDay() === weekday) {
+          count += 1;
+          if (count === nth) {
+            return isoDate(date.getFullYear(), date.getMonth() + 1, date.getDate());
+          }
+        }
+        date.setDate(date.getDate() + 1);
+      }
+      return "";
+    }
+
+    function addDays(iso, days) {
+      const date = parseDate(iso);
+      date.setDate(date.getDate() + days);
+      return isoDate(date.getFullYear(), date.getMonth() + 1, date.getDate());
+    }
+
+    function formatPrice(value) {
+      if (!value) {
+        return "";
+      }
+      const number = Number(value);
+      if (Number.isNaN(number)) {
+        return value;
+      }
+      return number.toLocaleString("zh-CN");
+    }
+
+    function priceBandRank(product) {
+      const rank = ["旗舰", "高端", "中高端", "主流", "入门", ""];
+      const band = product.priceBand || "";
+      const index = rank.indexOf(band);
+      return index >= 0 ? index : rank.length;
+    }
+
+    function getPromoYear() {
+      if (startInput.value) {
+        return parseDate(startInput.value).getFullYear();
+      }
+      if (endInput.value) {
+        return parseDate(endInput.value).getFullYear();
+      }
+      return 2026;
+    }
+
+    function buildPromoSet(year) {
+      const blackFriday = nthWeekdayOfMonth(year, 10, 5, 4);
+      return [
+        { country: "中国", name: "618", date: isoDate(year, 6, 18), important: true },
+        { country: "中国", name: "双11", date: isoDate(year, 11, 11), important: true },
+        { country: "中国", name: "双12", date: isoDate(year, 12, 12), important: true },
+        { country: "美国", name: "返校季", date: isoDate(year, 8, 15) },
+        ...(promoOverrides.primeDay[year] ? [{ country: "美国", name: "Prime Day", date: promoOverrides.primeDay[year], important: true }] : []),
+        { country: "美国", name: "黑色星期五", date: blackFriday, important: true },
+        { country: "美国", name: "网络星期一", date: addDays(blackFriday, 3) },
+        { country: "美国", name: "圣诞季", date: isoDate(year, 12, 25), important: true },
+        { country: "日本", name: "黄金周", date: isoDate(year, 4, 29), important: true },
+        { country: "日本", name: "Amazon新生活", date: isoDate(year, 3, 3) },
+        { country: "日本", name: "楽天SS春", date: isoDate(year, 3, 4) },
+        { country: "日本", name: "超PayPay祭", date: isoDate(year, 3, 1), important: true },
+        { country: "日本", name: "楽天SS夏", date: isoDate(year, 6, 4) },
+        { country: "日本", name: "夏季奖金季", date: isoDate(year, 7, 10) },
+        { country: "日本", name: "楽天SS秋", date: isoDate(year, 9, 4) },
+        { country: "日本", name: "黑色星期五", date: blackFriday, important: true },
+        { country: "日本", name: "超PayPay年末", date: isoDate(year, 12, 1), important: true },
+        { country: "日本", name: "楽天SS冬", date: isoDate(year, 12, 4), important: true },
+        { country: "日本", name: "年末商战", date: isoDate(year, 12, 15), important: true },
+        { country: "韩国", name: "儿童节", date: isoDate(year, 5, 5) },
+        { country: "韩国", name: "11街Grand 11", date: isoDate(year, 5, 6), important: true },
+        { country: "韩国", name: "Big Smile Day春", date: isoDate(year, 5, 7) },
+        { country: "韩国", name: "黑色星期五", date: blackFriday, important: true },
+        { country: "韩国", name: "Big Smile Day", date: isoDate(year, 11, 1), important: true },
+        { country: "韩国", name: "11街Grand 11秋", date: isoDate(year, 11, 1), important: true },
+        { country: "韩国", name: "Korea Sale FESTA", date: isoDate(year, 11, 9), important: true },
+        ...(promoOverrides.chuseok[year] ? [{ country: "韩国", name: "秋夕档", date: promoOverrides.chuseok[year], important: true }] : []),
+        { country: "韩国", name: "圣诞季", date: isoDate(year, 12, 25), important: true },
+        { country: "韩国", name: "年末促销季", date: isoDate(year, 12, 18) }
+      ];
+    }
+
+    function yearsForRange(range) {
+      if (!range) {
+        return [getPromoYear()];
+      }
+
+      const years = [];
+      for (let year = range.start.getFullYear(); year <= range.end.getFullYear(); year += 1) {
+        years.push(year);
+      }
+      return years;
+    }
+
+    function refreshPromos(range = null) {
+      const years = yearsForRange(range);
+      promos = years.flatMap((year) => buildPromoSet(year));
+      promoRefreshStamp = years.length === 1 ? `已刷新 ${years[0]} 年节点` : `已刷新 ${years[0]}-${years[years.length - 1]} 年节点`;
+      refreshNote.textContent = promoRefreshStamp;
+    }
+
+    function clamp(value, min, max) {
+      return Math.max(min, Math.min(max, value));
+    }
+
+    function cloneProduct(product) {
+      return JSON.parse(JSON.stringify(product));
+    }
+
+    function cloneState(state) {
+      return JSON.parse(JSON.stringify(state));
+    }
+
+    function laneLabel(lane) {
+      return lane === 0 ? "主线" : lane === 1 ? "营销" : "运营";
+    }
+
+    function laneValue(label) {
+      return label === "主线" ? 0 : label === "营销" ? 1 : 2;
+    }
+
+    function taskTemplateByName(name) {
+      return taskTemplates.find((template) => template.name === name);
+    }
+
+    function taskNameOptions(selectedName) {
+      const hasTemplate = Boolean(taskTemplateByName(selectedName));
+      return `
+        <option value="__custom">自定义</option>
+        ${taskTemplates.map((template) => `
+          <option value="${template.name}"${template.name === selectedName ? " selected" : ""}>${template.name}</option>
+        `).join("")}
+      `.replace('value="__custom"', `value="__custom"${hasTemplate ? "" : " selected"}`);
+    }
+
+    function taskBoxHtml(task, index) {
+      const expandedClass = index === expandedTaskIndex ? "expanded" : "";
+      const summary = `${task.start || "-"} -> ${task.end || "-"} / ${task.startNode || "未填"} -> ${task.endNode || "未填"}`;
+      return `
+        <div class="task-box ${expandedClass}" data-task-index="${index}">
+          <div class="task-head">
+            <div class="task-main">
+              <div class="task-title">生命周期节点 ${String(index + 1).padStart(2, "0")} · ${task.name || "未命名节点"}</div>
+              <div class="task-summary">${summary}</div>
+            </div>
+            <div class="task-tools">
+              <div class="task-index">${laneLabel(task.lane)}段</div>
+              <button class="task-toggle-btn" type="button" data-action="toggle-task">${index === expandedTaskIndex ? "收起" : "展开"}</button>
+              <button class="delete-task-btn" type="button" data-action="reset-task">重置</button>
+              <button class="delete-task-btn" type="button" data-action="delete-task">删除</button>
+            </div>
+          </div>
+          <div class="task-body">
+          <div class="task-grid">
+            <label>
+              节点名称
+              <select data-field="name">
+                ${taskNameOptions(task.name)}
+              </select>
+            </label>
+            <label${taskTemplateByName(task.name) ? " hidden" : ""}>
+              自定义名称
+              <input data-field="customName" type="text" value="${task.name}">
+            </label>
+            <label>
+              泳道
+              <select data-field="lane">
+                <option value="0"${task.lane === 0 ? " selected" : ""}>主线</option>
+                <option value="1"${task.lane === 1 ? " selected" : ""}>营销</option>
+                <option value="2"${task.lane === 2 ? " selected" : ""}>运营</option>
+              </select>
+            </label>
+            <label>
+              开始时间
+              <input data-field="start" type="date" value="${task.start}">
+            </label>
+            <label>
+              结束时间
+              <input data-field="end" type="date" value="${task.end}">
+            </label>
+            <label>
+              开始节点
+              <input data-field="startNode" type="text" value="${task.startNode}">
+            </label>
+            <label>
+              结束节点
+              <input data-field="endNode" type="text" value="${task.endNode}">
+            </label>
+          </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderTaskList(tasks) {
+      expandedTaskIndex = Math.max(0, Math.min(expandedTaskIndex, Math.max(tasks.length - 1, 0)));
+      taskList.innerHTML = tasks.map((task, index) => taskBoxHtml(task, index)).join("");
+    }
+
+    function snapshotState() {
+      return {
+        products: cloneState(products),
+        editorTargetIndex,
+        expandedTaskIndex,
+        filters: {
+          startDate: startInput.value,
+          endDate: endInput.value,
+          market: marketFilter.value,
+          theme: themePicker.value,
+          themePreferenceSet,
+          zoomPreferenceSet,
+          zoom: zoomRange.value
+        },
+        ui: {
+          editorCollapsed,
+          exportSelectedProducts: cloneState(exportSelectedProducts)
+        },
+        editor: {
+          name: formProductName.value,
+          market: formMarket.value,
+          phase: formPhase.value,
+          price: formPrice.value,
+          priceBand: formPriceBand.value,
+          productType: formProductType.value,
+          parentProduct: formParentProduct.value,
+          attribute: formAttribute.value,
+          note: formNote.value,
+          tasks: collectEditorTasks()
+        }
+      };
+    }
+
+    function applyState(state) {
+      products.splice(0, products.length, ...cloneState(state.products));
+      editorTargetIndex = state.editorTargetIndex;
+      expandedTaskIndex = Number.isInteger(state.expandedTaskIndex) ? state.expandedTaskIndex : 0;
+      startInput.value = state.filters.startDate;
+      endInput.value = state.filters.endDate;
+      marketFilter.value = state.filters.market;
+      themePreferenceSet = Boolean(state.filters.themePreferenceSet);
+      const restoredTheme = state.filters.theme || "sky";
+      themePicker.value = !themePreferenceSet && restoredTheme === "pink" ? "sky" : restoredTheme;
+      document.documentElement.dataset.theme = themePicker.value;
+      zoomPreferenceSet = Boolean(state.filters.zoomPreferenceSet);
+      const restoredZoom = Number(state.filters.zoom || 2);
+      zoomRange.value = String(!zoomPreferenceSet && (restoredZoom === 16 || restoredZoom === 3) ? 2 : restoredZoom);
+      editorCollapsed = Boolean(state.ui?.editorCollapsed);
+      exportSelectedProducts = Array.isArray(state.ui?.exportSelectedProducts) ? cloneState(state.ui.exportSelectedProducts) : [];
+      syncEditorVisibility();
+      formProductName.value = state.editor.name;
+      formMarket.value = state.editor.market;
+      formPhase.value = state.editor.phase;
+      formPrice.value = state.editor.price || "";
+      formPriceBand.value = state.editor.priceBand || "";
+      formProductType.value = state.editor.productType;
+      renderParentOptions(state.editor.name, state.editor.parentProduct);
+      formAttribute.value = state.editor.attribute;
+      formNote.value = state.editor.note;
+      renderTaskList(state.editor.tasks);
+      renderProductList();
+      render();
+    }
+
+    function syncEditorVisibility() {
+      workspace.classList.toggle("editor-collapsed", editorCollapsed);
+      toggleEditorBtn.textContent = editorCollapsed ? "展开录入" : "收起录入";
+    }
+
+    function setStorageNote(message) {
+      storageNote.textContent = message;
+    }
+
+    function persistState(note = "已自动保存到当前浏览器") {
+      const state = snapshotState();
+      localStorage.setItem(storageKey, JSON.stringify(state));
+      setStorageNote(note);
+    }
+
+    function loadPersistedState() {
+      const raw = localStorage.getItem(storageKey);
+      if (!raw) {
+        return false;
+      }
+
+      try {
+        const state = JSON.parse(raw);
+        applyState(state);
+        setStorageNote("已从当前浏览器恢复上次内容");
+        return true;
+      } catch (error) {
+        localStorage.removeItem(storageKey);
+        setStorageNote("本地缓存损坏，已忽略");
+        return false;
+      }
+    }
+
+    function exportData() {
+      const payload = {
+        version: 1,
+        exportedAt: new Date().toISOString(),
+        state: snapshotState()
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      const stamp = new Date().toISOString().slice(0, 10);
+      link.href = url;
+      link.download = `product-timeline-${stamp}.json`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      setStorageNote("已导出当前产品数据");
+    }
+
+    function importData(file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const payload = JSON.parse(String(reader.result || ""));
+          const nextState = payload && payload.state ? payload.state : payload;
+          if (!nextState || !Array.isArray(nextState.products)) {
+            throw new Error("invalid");
+          }
+          pushHistory();
+          applyState(nextState);
+          persistState("已导入并保存到当前浏览器");
+        } catch (error) {
+          setStorageNote("导入失败，文件格式不对");
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function escapeXml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    }
+
+    async function ensureHtml2Canvas() {
+      if (window.html2canvas) {
+        return window.html2canvas;
+      }
+
+      await new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = "https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js";
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+      });
+
+      if (!window.html2canvas) {
+        throw new Error("html2canvas unavailable");
+      }
+
+      return window.html2canvas;
+    }
+
+    async function captureWithHtml2Canvas() {
+      const captureArea = document.getElementById("captureArea");
+      const boardEl = document.querySelector(".board");
+      const promoEl = document.querySelector(".milestones");
+      const html2canvas = await ensureHtml2Canvas();
+      const boardWidth = Math.max(boardEl.scrollWidth, Math.ceil(boardEl.getBoundingClientRect().width));
+      const promoWidth = Math.max(promoEl.scrollWidth, Math.ceil(promoEl.getBoundingClientRect().width));
+      const width = Math.max(boardWidth, promoWidth, Math.ceil(captureArea.getBoundingClientRect().width));
+      const prevWidth = captureArea.style.width;
+      const prevMinWidth = captureArea.style.minWidth;
+
+      captureArea.style.width = `${width}px`;
+      captureArea.style.minWidth = `${width}px`;
+
+      try {
+        const canvas = await html2canvas(captureArea, {
+          backgroundColor: getComputedStyle(document.body).backgroundColor || "#ffffff",
+          scale: Math.min(2, window.devicePixelRatio || 1),
+          useCORS: true,
+          logging: false,
+          width,
+          windowWidth: width,
+          scrollX: 0,
+          scrollY: 0
+        });
+
+        return await new Promise((resolve, reject) => {
+          canvas.toBlob((pngBlob) => {
+            if (pngBlob) {
+              resolve(pngBlob);
+              return;
+            }
+            reject(new Error("html2canvas png export failed"));
+          }, "image/png");
+        });
+      } finally {
+        captureArea.style.width = prevWidth;
+        captureArea.style.minWidth = prevMinWidth;
+      }
+    }
+
+    async function captureElementToBlob() {
+      try {
+        return await captureWithHtml2Canvas();
+      } catch (error) {
+        console.warn("html2canvas capture failed, fallback to svg capture", error);
+      }
+
+      const captureArea = document.getElementById("captureArea");
+      const boardEl = document.querySelector(".board");
+      const promoEl = document.querySelector(".milestones");
+      const areaRect = captureArea.getBoundingClientRect();
+      const boardWidth = Math.max(boardEl.scrollWidth, Math.ceil(boardEl.getBoundingClientRect().width));
+      const promoWidth = Math.max(promoEl.scrollWidth, Math.ceil(promoEl.getBoundingClientRect().width));
+      const width = Math.max(boardWidth, promoWidth, Math.ceil(areaRect.width));
+      const height = Math.ceil(captureArea.scrollHeight);
+      const clone = captureArea.cloneNode(true);
+      clone.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
+      clone.style.width = `${width}px`;
+      clone.style.minWidth = `${width}px`;
+      const clonedBoard = clone.querySelector(".board");
+      if (clonedBoard) {
+        clonedBoard.style.width = `${boardWidth}px`;
+        clonedBoard.style.minWidth = `${boardWidth}px`;
+        clonedBoard.style.overflow = "visible";
+      }
+      const styles = [...document.querySelectorAll("style")]
+        .map((node) => node.textContent || "")
+        .join("\n");
+      const markup = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">
+          <foreignObject width="100%" height="100%">
+            <div xmlns="http://www.w3.org/1999/xhtml" style="width:${width}px;height:${height}px;padding:0;margin:0;background:${getComputedStyle(document.body).backgroundColor || "#ffffff"};">
+              <style>${escapeXml(styles)}</style>
+              ${new XMLSerializer().serializeToString(clone)}
+            </div>
+          </foreignObject>
+        </svg>
+      `;
+      const blob = new Blob([markup], { type: "image/svg+xml;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      try {
+        const image = new Image();
+        await new Promise((resolve, reject) => {
+          image.onload = resolve;
+          image.onerror = reject;
+          image.src = url;
+        });
+        const canvas = document.createElement("canvas");
+        const scale = Math.min(2, window.devicePixelRatio || 1);
+        canvas.width = Math.max(1, Math.round(width * scale));
+        canvas.height = Math.max(1, Math.round(height * scale));
+        const ctx = canvas.getContext("2d");
+        ctx.scale(scale, scale);
+        ctx.fillStyle = getComputedStyle(document.body).backgroundColor || "#ffffff";
+        ctx.fillRect(0, 0, width, height);
+        ctx.drawImage(image, 0, 0, width, height);
+        return await new Promise((resolve, reject) => {
+          canvas.toBlob((pngBlob) => {
+            if (pngBlob) {
+              resolve(pngBlob);
+              return;
+            }
+            reject(new Error("png export failed"));
+          }, "image/png");
+        });
+      } finally {
+        URL.revokeObjectURL(url);
+      }
+    }
+
+    function downloadBlob(blob, filename) {
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+
+    async function copyGanttImage() {
+      const filename = `product-gantt-${new Date().toISOString().slice(0, 10)}.png`;
+      const beforeCopyState = snapshotState();
+      try {
+        setStorageNote("正在生成甘特图图片");
+        const copyRange = getCopyRange();
+        if (copyRange) {
+          startInput.value = copyRange.start;
+          endInput.value = copyRange.end;
+          render();
+          await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+        }
+        const blob = await captureElementToBlob();
+        applyState(beforeCopyState);
+        if (navigator.clipboard && window.ClipboardItem) {
+          try {
+            await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+            setStorageNote("已复制甘特图图片到剪贴板");
+            return;
+          } catch (error) {
+            downloadBlob(blob, filename);
+            setStorageNote("剪贴板被浏览器拦截，已改为下载 PNG");
+            return;
+          }
+        }
+        downloadBlob(blob, filename);
+        setStorageNote("当前环境不支持图片剪贴板，已改为下载 PNG");
+      } catch (error) {
+        applyState(beforeCopyState);
+        setStorageNote("甘特图导出失败，浏览器渲染被拦截了");
+      }
+    }
+
+    function updateHistoryButtons() {
+      undoBtn.disabled = historyStack.length === 0;
+      redoBtn.disabled = futureStack.length === 0;
+    }
+
+    function syncExportSelections() {
+      const names = new Set(products.map((product) => product.name));
+      exportSelectedProducts = exportSelectedProducts.filter((name) => names.has(name));
+    }
+
+    function pushHistory() {
+      historyStack.push(snapshotState());
+      futureStack.length = 0;
+      updateHistoryButtons();
+    }
+
+    function undo() {
+      if (!historyStack.length) {
+        return;
+      }
+      futureStack.push(snapshotState());
+      const prev = historyStack.pop();
+      applyState(prev);
+      updateHistoryButtons();
+    }
+
+    function redo() {
+      if (!futureStack.length) {
+        return;
+      }
+      historyStack.push(snapshotState());
+      const next = futureStack.pop();
+      applyState(next);
+      updateHistoryButtons();
+    }
+
+    function renderProductList() {
+      syncExportSelections();
+      productCount.textContent = `${products.length} 个`;
+      productList.innerHTML = products.map((product, index) => `
+        <div class="product-item-row" draggable="true" data-product-row-index="${index}">
+          <input class="product-export-check" type="checkbox" data-product-export="${product.name}" ${exportSelectedProducts.includes(product.name) ? "checked" : ""} title="复制甘特图时纳入这个产品">
+          <button class="product-item ${index === editorTargetIndex ? "active" : ""}" type="button" data-product-index="${index}">
+            <div class="product-item-name">${product.name}</div>
+            <div class="product-item-meta ${product.parentProduct ? "sub" : ""}">${product.market} / ${product.productType}${product.price ? ` / 价格 ${formatPrice(product.price)}` : ""}${product.parentProduct ? ` / ${product.parentProduct}` : ""}</div>
+          </button>
+        </div>
+      `).join("");
+      renderCopyTaskSources();
+    }
+
+    function renderCopyTaskSources() {
+      const currentValue = copyTasksSource.value;
+      const options = products
+        .map((product, index) => ({ product, index }))
+        .filter(({ product, index }) => index !== editorTargetIndex && product.tasks?.length)
+        .map(({ product, index }) => `<option value="${index}">${product.name} / ${product.market} / ${product.tasks.length}节点</option>`)
+        .join("");
+      copyTasksSource.innerHTML = `<option value="">选择产品</option>${options}`;
+      copyTasksSource.value = [...copyTasksSource.options].some((option) => option.value === currentValue) ? currentValue : "";
+    }
+
+    function copyTasksFromProduct() {
+      const sourceIndex = Number(copyTasksSource.value);
+      const source = products[sourceIndex];
+      if (!source || !source.tasks?.length) {
+        copyTasksSource.focus();
+        return;
+      }
+
+      pushHistory();
+      expandedTaskIndex = Math.max(0, source.tasks.length - 1);
+      renderTaskList(cloneState(source.tasks));
+      persistState(`已复制 ${source.name} 的节点`);
+    }
+
+    function toggleExportProduct(name, checked) {
+      if (!name) {
+        return;
+      }
+      if (checked) {
+        if (!exportSelectedProducts.includes(name)) {
+          exportSelectedProducts.push(name);
+        }
+        return;
+      }
+      exportSelectedProducts = exportSelectedProducts.filter((item) => item !== name);
+    }
+
+    function moveProduct(fromIndex, toIndex) {
+      if (fromIndex === toIndex || fromIndex < 0 || toIndex < 0 || fromIndex >= products.length || toIndex >= products.length) {
+        return;
+      }
+
+      pushHistory();
+      const [moved] = products.splice(fromIndex, 1);
+      products.splice(toIndex, 0, moved);
+
+      if (editorTargetIndex === fromIndex) {
+        editorTargetIndex = toIndex;
+      } else if (fromIndex < editorTargetIndex && toIndex >= editorTargetIndex) {
+        editorTargetIndex -= 1;
+      } else if (fromIndex > editorTargetIndex && toIndex <= editorTargetIndex) {
+        editorTargetIndex += 1;
+      }
+
+      renderProductList();
+      render();
+      persistState("已调整产品顺序");
+    }
+
+    function getCopyTargetProducts() {
+      const selected = products.filter((product) => exportSelectedProducts.includes(product.name));
+      if (selected.length) {
+        return selected;
+      }
+
+      const selectedMarket = marketFilter.value;
+      return products.filter((item) => {
+        return selectedMarket === "all" || item.market === selectedMarket;
+      });
+    }
+
+    function rangeForProducts(sourceProducts) {
+      const targets = sourceProducts.filter((product) => product.tasks?.some((task) => task.start || task.end));
+      if (!targets.length) {
+        return null;
+      }
+
+      let start = null;
+      let end = null;
+
+      targets.forEach((product) => {
+        product.tasks.forEach((task) => {
+          const taskStart = task.start ? parseDate(task.start) : task.end ? parseDate(task.end) : null;
+          const taskEnd = task.end ? parseDate(task.end) : task.start ? parseDate(task.start) : null;
+          if (!taskStart || !taskEnd || Number.isNaN(taskStart.getTime()) || Number.isNaN(taskEnd.getTime())) {
+            return;
+          }
+          if (!start || taskStart < start) {
+            start = taskStart;
+          }
+          if (!end || taskEnd > end) {
+            end = taskEnd;
+          }
+        });
+      });
+
+      if (!start || !end) {
+        return null;
+      }
+
+      return {
+        start: formatDate(start),
+        end: formatDate(end)
+      };
+    }
+
+    function expandRangeWithPromos(range, selectedMarket) {
+      if (!range) {
+        return null;
+      }
+
+      const start = parseDate(range.start);
+      const end = parseDate(range.end);
+      const rangeYears = [];
+      for (let year = start.getFullYear(); year <= end.getFullYear(); year += 1) {
+        rangeYears.push(year);
+      }
+
+      rangeYears
+        .flatMap((year) => buildPromoSet(year))
+        .filter((promo) => (selectedMarket === "all" || promo.country === selectedMarket) && promo.important)
+        .forEach((promo) => {
+          const promoDate = parseDate(promo.date);
+          if (promoDate < start) {
+            start.setTime(promoDate.getTime());
+          }
+          if (promoDate > end) {
+            end.setTime(promoDate.getTime());
+          }
+        });
+
+      return {
+        start: formatDate(start),
+        end: formatDate(end)
+      };
+    }
+
+    function getCopyRange() {
+      return expandRangeWithPromos(rangeForProducts(getCopyTargetProducts()), marketFilter.value);
+    }
+
+    function autoFitRangeForMarket() {
+      const selectedMarket = marketFilter.value;
+      const marketProducts = products.filter((item) => selectedMarket === "all" || item.market === selectedMarket);
+      const nextRange = expandRangeWithPromos(rangeForProducts(marketProducts), selectedMarket);
+      if (!nextRange) {
+        return false;
+      }
+
+      startInput.value = nextRange.start;
+      endInput.value = nextRange.end;
+      return true;
+    }
+
+    function renderParentOptions(selectedName = "", keepValue = "") {
+      const allowedTypes = formProductType.value === "配件" ? ["主产品", "地区改款"] : ["主产品"];
+      const candidates = products
+        .map((product, index) => ({ product, index }))
+        .filter(({ product, index }) => index !== editorTargetIndex && allowedTypes.includes(product.productType || "主产品"))
+        .map(({ product }) => `<option value="${product.name}">${product.name} / ${product.market} / ${product.productType || "主产品"}</option>`)
+        .join("");
+      const keepFallback = keepValue && !products.some((product, index) => index !== editorTargetIndex && product.name === keepValue)
+        ? `<option value="${keepValue}">${keepValue} / 已保存关联</option>`
+        : "";
+      formParentProduct.innerHTML = `<option value="">无</option>${keepFallback}${candidates}`;
+      formParentProduct.value = [...formParentProduct.options].some((option) => option.value === keepValue) ? keepValue : "";
+      toggleParentRequirement();
+    }
+
+    function toggleParentRequirement() {
+      const needsParent = formProductType.value === "配件" || formProductType.value === "地区改款";
+      formParentProduct.disabled = !needsParent;
+      formParentProduct.required = needsParent;
+      if (!needsParent) {
+        formParentProduct.value = "";
+      }
+    }
+
+    function parentValueForSave() {
+      return formProductType.value === "配件" || formProductType.value === "地区改款" ? formParentProduct.value : "";
+    }
+
+    function beginNewProduct() {
+      pushHistory();
+      clearEditor();
+      formProductName.focus();
+      render();
+      persistState();
+    }
+
+    function fillEditor(product) {
+      formProductName.value = product.name;
+      formMarket.value = product.market;
+      formPhase.value = product.phase;
+      formPrice.value = product.price || "";
+      formPriceBand.value = product.priceBand || "";
+      formProductType.value = product.productType || "主产品";
+      renderParentOptions(product.name, product.parentProduct || "");
+      formAttribute.value = product.attribute;
+      formNote.value = product.note || "";
+      expandedTaskIndex = Math.max(0, product.tasks.length - 1);
+      renderTaskList(product.tasks);
+      renderProductList();
+      renderCopyTaskSources();
+    }
+
+    function collectEditorTasks() {
+      return [...taskList.querySelectorAll(".task-box")].map((box, index) => {
+        const selectedName = box.querySelector('[data-field="name"]').value;
+        const customName = box.querySelector('[data-field="customName"]').value;
+        return {
+          name: selectedName === "__custom" ? customName || `节点${index + 1}` : selectedName || `节点${index + 1}`,
+          lane: Number(box.querySelector('[data-field="lane"]').value || 0),
+          start: box.querySelector('[data-field="start"]').value || startInput.value,
+          end: box.querySelector('[data-field="end"]').value || endInput.value,
+          startNode: box.querySelector('[data-field="startNode"]').value,
+          endNode: box.querySelector('[data-field="endNode"]').value
+        };
+      });
+    }
+
+    function blankTask(index = 0) {
+      const template = taskTemplates[index % taskTemplates.length];
+      return {
+        name: template.name,
+        lane: template.lane,
+        start: startInput.value,
+        end: startInput.value,
+        startNode: "",
+        endNode: ""
+      };
+    }
+
+    function applyTaskTemplate(selectEl) {
+      const template = taskTemplateByName(selectEl.value);
+      const box = selectEl.closest(".task-box");
+      if (!template || !box) {
+        return;
+      }
+
+      const laneSelect = box.querySelector('[data-field="lane"]');
+      if (laneSelect instanceof HTMLSelectElement) {
+        laneSelect.value = String(template.lane);
+      }
+    }
+
+    function syncTaskEndYear(startInputEl) {
+      if (!(startInputEl instanceof HTMLInputElement) || !startInputEl.value) {
+        return;
+      }
+
+      const box = startInputEl.closest(".task-box");
+      const endInputEl = box?.querySelector('[data-field="end"]');
+      if (!(endInputEl instanceof HTMLInputElement)) {
+        return;
+      }
+
+      const start = parseDate(startInputEl.value);
+      if (!endInputEl.value) {
+        endInputEl.value = startInputEl.value;
+        return;
+      }
+
+      const end = parseDate(endInputEl.value);
+      if (Number.isNaN(end.getTime()) || end < start || end.getFullYear() !== start.getFullYear()) {
+        const synced = new Date(start.getFullYear(), end.getMonth(), end.getDate());
+        endInputEl.value = formatDate(synced < start ? start : synced);
+      }
+    }
+
+    function resetEditor() {
+      editorTargetIndex = -1;
+      fillEditor(cloneProduct(defaultEditorProduct));
+    }
+
+    function clearEditor() {
+      editorTargetIndex = -1;
+      formProductName.value = "";
+      formMarket.value = "中国";
+      formPhase.value = "规划中";
+      formPrice.value = "";
+      formPriceBand.value = "";
+      formProductType.value = "主产品";
+      renderParentOptions("", "");
+      formAttribute.value = "";
+      formNote.value = "";
+      renderTaskList(defaultTaskNames.map((_, index) => blankTask(index)));
+      expandedTaskIndex = 0;
+      renderProductList();
+      renderCopyTaskSources();
+    }
+
+    function saveEditorProduct() {
+      pushHistory();
+      const nextTasks = collectEditorTasks();
+      if (!nextTasks.length) {
+        renderTaskList([cloneProduct(defaultEditorProduct).tasks[0]]);
+        return;
+      }
+
+      if ((formProductType.value === "配件" || formProductType.value === "地区改款") && !formParentProduct.value) {
+        formParentProduct.focus();
+        return;
+      }
+
+      if (editorTargetIndex < 0 || editorTargetIndex >= products.length) {
+        products.push({
+          name: formProductName.value || "未命名产品",
+          market: formMarket.value,
+          phase: formPhase.value,
+          price: formPrice.value,
+          priceBand: formPriceBand.value,
+          productType: formProductType.value,
+          parentProduct: parentValueForSave(),
+          attribute: formAttribute.value || "",
+          note: formNote.value,
+          tasks: nextTasks
+        });
+        editorTargetIndex = products.length - 1;
+        renderProductList();
+        render();
+        persistState();
+        return;
+      }
+
+      products[editorTargetIndex] = {
+        ...products[editorTargetIndex],
+        name: formProductName.value || "未命名产品",
+        market: formMarket.value,
+        phase: formPhase.value,
+        price: formPrice.value,
+        priceBand: formPriceBand.value,
+        productType: formProductType.value,
+        parentProduct: parentValueForSave(),
+        attribute: formAttribute.value || "",
+        note: formNote.value,
+        tasks: nextTasks
+      };
+      renderProductList();
+      render();
+      persistState();
+    }
+
+    function loadProductToEditor(index) {
+      editorTargetIndex = index;
+      fillEditor(cloneProduct(products[index]));
+    }
+
+    function deleteCurrentProduct() {
+      if (editorTargetIndex < 0 || editorTargetIndex >= products.length) {
+        return;
+      }
+
+      pushHistory();
+      products.splice(editorTargetIndex, 1);
+      if (!products.length) {
+        clearEditor();
+        render();
+        persistState();
+        return;
+      }
+
+      editorTargetIndex = Math.max(0, Math.min(editorTargetIndex, products.length - 1));
+      fillEditor(cloneProduct(products[editorTargetIndex]));
+      render();
+      persistState();
+    }
+
+    function productStart(item) {
+      return item.tasks.reduce((earliest, task) => taskStartDate(task) < earliest ? taskStartDate(task) : earliest, taskStartDate(item.tasks[0]));
+    }
+
+    function productEnd(item) {
+      return item.tasks.reduce((latest, task) => taskEndDate(task) > latest ? taskEndDate(task) : latest, taskEndDate(item.tasks[0]));
+    }
+
+    function taskStartDate(task) {
+      const start = parseDate(task.start);
+      const end = parseDate(task.end);
+      return start <= end ? start : end;
+    }
+
+    function taskEndDate(task) {
+      const start = parseDate(task.start);
+      const end = parseDate(task.end);
+      return start <= end ? end : start;
+    }
+
+    function visiblePromos(range) {
+      const selectedMarket = marketFilter.value;
+      return promos
+        .filter((promo) => selectedMarket === "all" || promo.country === selectedMarket)
+        .filter((promo) => parseDate(promo.date) >= range.start && parseDate(promo.date) <= range.end);
+    }
+
+    function promoClass(promo) {
+      const countryClass = promo.country === "美国" ? "us" : promo.country === "日本" ? "jp" : promo.country === "韩国" ? "kr" : "";
+      return `event-line ${promo.important ? "important" : ""} ${countryClass}`;
+    }
+
+    function segmentColor(market, index) {
+      const palettes = {
+        "中国": [204, 78, 58],
+        "美国": [204, 82, 60],
+        "日本": [228, 78, 66],
+        "韩国": [194, 78, 62]
+      };
+      const [hue, saturation, lightness] = palettes[market] || [204, 78, 60];
+      const step = index % 5;
+      return `hsl(${hue} ${Math.max(52, saturation - step * 5)}% ${Math.max(42, lightness - step * 6)}%)`;
+    }
+
+    function updateZoomChips(dayWidth) {
+      zoomChips.forEach((chip) => {
+        chip.classList.toggle("active", Number(chip.dataset.zoom) === dayWidth);
+      });
+    }
+
+    function zoomDisplayName(dayWidth) {
+      if (dayWidth <= 1) {
+        return "3年视图";
+      }
+      if (dayWidth <= 2) {
+        return "2年视图";
+      }
+      if (dayWidth <= 4) {
+        return "年度视图";
+      }
+      if (dayWidth <= 8) {
+        return "月度视图";
+      }
+      if (dayWidth <= 14) {
+        return "双周视图";
+      }
+      return "周视图";
+    }
+
+    function getRange() {
+      if (!startInput.value || !endInput.value) {
+        return null;
+      }
+
+      let start = parseDate(startInput.value);
+      let end = parseDate(endInput.value);
+
+      if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) {
+        return null;
+      }
+
+      if (end < start) {
+        end = new Date(start.getTime() + 30 * dayMs);
+        endInput.value = formatDate(end);
+      }
+
+      return { start, end, totalDays: Math.max(1, Math.round((end - start) / dayMs) + 1) };
+    }
+
+    function positionFor(dateValue, range) {
+      const date = parseDate(dateValue);
+      const offset = clamp(Math.round((date - range.start) / dayMs), 0, range.totalDays - 1);
+      return (offset / range.totalDays) * 100;
+    }
+
+    function pushTick(ticks, date, range) {
+      if (date >= range.start && date <= range.end) {
+        ticks.push(new Date(date));
+      }
+    }
+
+    function timelineTicks(range, dayWidth) {
+      const ticks = [];
+      pushTick(ticks, range.start, range);
+
+      let cursor = new Date(range.start.getFullYear(), range.start.getMonth(), 1);
+      if (cursor < range.start) {
+        cursor = new Date(cursor.getFullYear(), cursor.getMonth() + 1, 1);
+      }
+
+      while (cursor <= range.end) {
+        pushTick(ticks, cursor, range);
+        if (dayWidth > 5) {
+          pushTick(ticks, new Date(cursor.getFullYear(), cursor.getMonth(), 15), range);
+        }
+        cursor = new Date(cursor.getFullYear(), cursor.getMonth() + 1, 1);
+      }
+
+      if (dayWidth > 12) {
+        let weekCursor = new Date(range.start);
+        weekCursor.setDate(weekCursor.getDate() + ((8 - weekCursor.getDay()) % 7));
+        while (weekCursor <= range.end) {
+          pushTick(ticks, weekCursor, range);
+          weekCursor = new Date(weekCursor.getFullYear(), weekCursor.getMonth(), weekCursor.getDate() + 7);
+        }
+      }
+
+      return [...new Map(ticks.map((date) => [formatDate(date), date])).values()]
+        .sort((a, b) => a - b);
+    }
+
+    function widthFor(task, range) {
+      const itemStart = taskStartDate(task);
+      const itemEnd = taskEndDate(task);
+      const visibleStart = new Date(Math.max(itemStart, range.start));
+      const visibleEnd = new Date(Math.min(itemEnd, range.end));
+      const visibleDays = Math.max(1, Math.round((visibleEnd - visibleStart) / dayMs) + 1);
+      return (visibleDays / range.totalDays) * 100;
+    }
+
+    function segmentLabel(task, pixelWidth) {
+      const name = task.name || "";
+
+      if (pixelWidth < 34) {
+        return name.slice(0, 2);
+      }
+      if (pixelWidth < 54) {
+        return name.slice(0, 4);
+      }
+      if (pixelWidth < 88) {
+        return name.length > 4 ? `${name.slice(0, 4)}..` : name;
+      }
+      return name;
+    }
+
+    function buildHeader(range) {
+      monthRow.innerHTML = "";
+      dayRow.innerHTML = "";
+      if (!range) {
+        board.style.setProperty("--timeline-width", "1200px");
+        board.style.setProperty("--day-width", "16px");
+        board.style.setProperty("--grid-width", "90px");
+        zoomValue.textContent = zoomDisplayName(Number(zoomRange.value));
+        updateZoomChips(Number(zoomRange.value));
+        dayRow.innerHTML = '<div class="empty">请选择开始和结束时间</div>';
+        return;
+      }
+
+      const dayWidth = Number(zoomRange.value);
+      const minWidth = Math.max(900, range.totalDays * dayWidth);
+      board.style.setProperty("--timeline-width", `${minWidth}px`);
+      board.style.setProperty("--day-width", `${dayWidth}px`);
+      zoomValue.textContent = zoomDisplayName(dayWidth);
+      updateZoomChips(dayWidth);
+
+      let yearCursor = new Date(range.start.getFullYear(), 0, 1);
+      while (yearCursor <= range.end) {
+        const yearStart = new Date(Math.max(yearCursor, range.start));
+        const nextYear = new Date(yearCursor.getFullYear() + 1, 0, 1);
+        const yearEnd = new Date(Math.min(nextYear.getTime() - dayMs, range.end));
+        const left = ((yearStart - range.start) / dayMs) / range.totalDays * 100;
+        const width = (Math.round((yearEnd - yearStart) / dayMs) + 1) / range.totalDays * 100;
+        const cell = document.createElement("div");
+        cell.className = "year-cell";
+        cell.style.left = `${left}%`;
+        cell.style.width = `${width}%`;
+        cell.textContent = `${yearCursor.getFullYear()}年`;
+        monthRow.appendChild(cell);
+        yearCursor = nextYear;
+      }
+
+      let monthCursor = new Date(range.start.getFullYear(), range.start.getMonth(), 1);
+      while (monthCursor <= range.end) {
+        const monthStart = new Date(Math.max(monthCursor, range.start));
+        const nextMonth = new Date(monthCursor.getFullYear(), monthCursor.getMonth() + 1, 1);
+        const monthEnd = new Date(Math.min(nextMonth.getTime() - dayMs, range.end));
+        const left = ((monthStart - range.start) / dayMs) / range.totalDays * 100;
+        const width = (Math.round((monthEnd - monthStart) / dayMs) + 1) / range.totalDays * 100;
+        const cell = document.createElement("div");
+        cell.className = "month-cell";
+        cell.style.left = `${left}%`;
+        cell.style.width = `${width}%`;
+        cell.textContent = `${monthCursor.getMonth() + 1}月`;
+        dayRow.appendChild(cell);
+        monthCursor = nextMonth;
+      }
+
+      timelineTicks(range, dayWidth).forEach((day) => {
+        const offset = Math.round((day - range.start) / dayMs);
+        const widthDays = dayWidth <= 5 ? 30 : dayWidth <= 12 ? 15 : 7;
+        const cell = document.createElement("div");
+        cell.className = "day-cell";
+        cell.style.left = `${(offset / range.totalDays) * 100}%`;
+        cell.style.width = `${(widthDays / range.totalDays) * 100}%`;
+        cell.textContent = `${day.getMonth() + 1}/${day.getDate()}`;
+        dayRow.appendChild(cell);
+      });
+
+      visiblePromos(range).forEach((promo) => {
+        const left = positionFor(promo.date, range);
+        const line = document.createElement("div");
+        line.className = promoClass(promo);
+        line.style.left = `${left}%`;
+        const label = document.createElement("div");
+        const showMinorLabel = promo.important || dayWidth >= 10;
+        label.className = `event-label ${showMinorLabel ? "" : "minor"}`.trim();
+        label.style.left = `${left}%`;
+        label.textContent = showMinorLabel ? promo.name : formatCn(promo.date);
+        dayRow.append(line, label);
+      });
+    }
+
+    function buildRows(range) {
+      rows.innerHTML = "";
+      if (!range) {
+        const productCell = document.createElement("div");
+        productCell.className = "product-cell";
+        productCell.textContent = "未选择时间";
+        const barCell = document.createElement("div");
+        barCell.className = "bar-cell empty";
+        barCell.textContent = "重置后这里会保持空白，先选择开始和结束时间";
+        rows.append(productCell, barCell);
+        rangeMeta.textContent = "未选择时间范围";
+        return;
+      }
+
+      const selectedMarket = marketFilter.value;
+      const filtered = products.filter((item) => {
+        const inMarket = selectedMarket === "all" || item.market === selectedMarket;
+        const overlaps = productEnd(item) >= range.start && productStart(item) <= range.end;
+        return inMarket && overlaps;
+      });
+      const visible = [];
+      const childrenByParent = new Map();
+      filtered.forEach((item) => {
+        if (item.parentProduct) {
+          const list = childrenByParent.get(item.parentProduct) || [];
+          list.push(item);
+          childrenByParent.set(item.parentProduct, list);
+          return;
+        }
+        visible.push(item);
+      });
+      [...childrenByParent.entries()].forEach(([parentName, children]) => {
+        const parentIndex = visible.findIndex((item) => item.name === parentName);
+        if (parentIndex >= 0) {
+          visible.splice(parentIndex + 1, 0, ...children);
+        } else {
+          visible.push(...children);
+        }
+      });
+      visible.sort((a, b) => {
+        const bandDiff = priceBandRank(a) - priceBandRank(b);
+        if (bandDiff !== 0) {
+          return bandDiff;
+        }
+        return Number(b.price || 0) - Number(a.price || 0);
+      });
+
+      rangeMeta.textContent = `${formatDate(range.start)} 至 ${formatDate(range.end)}，${visible.length} 个产品`;
+
+      if (!visible.length) {
+        const productCell = document.createElement("div");
+        productCell.className = "product-cell";
+        productCell.textContent = "无产品";
+        const barCell = document.createElement("div");
+        barCell.className = "bar-cell empty";
+        barCell.textContent = "当前范围内没有匹配产品";
+        rows.append(productCell, barCell);
+        return;
+      }
+
+      visible.forEach((item) => {
+        const sourceIndex = products.indexOf(item);
+        const productCell = document.createElement("div");
+        productCell.className = "product-cell";
+        productCell.draggable = true;
+        productCell.dataset.ganttProductIndex = String(sourceIndex);
+        const isChild = item.productType === "配件" || item.productType === "地区改款";
+        productCell.innerHTML = `
+          <div class="product-name ${isChild ? "child" : ""}">${item.name}</div>
+          <div class="product-market">${item.market} / ${item.productType || "主产品"}</div>
+          ${(item.price || item.priceBand) ? `<div class="product-price">${item.priceBand ? `<span class="price-band-tag">${item.priceBand}</span>` : ""}${item.price ? `<span>价格 ${formatPrice(item.price)}</span>` : ""}</div>` : ""}
+          ${item.parentProduct ? `<div class="product-relation">归属 ${item.parentProduct}</div>` : ""}
+        `;
+
+        const barCell = document.createElement("div");
+        barCell.className = "bar-cell";
+        timelineTicks(range, Number(zoomRange.value)).forEach((tick) => {
+          const line = document.createElement("div");
+          line.className = "grid-line";
+          line.style.left = `${positionFor(formatDate(tick), range)}%`;
+          barCell.appendChild(line);
+        });
+        visiblePromos(range).forEach((promo) => {
+          const line = document.createElement("div");
+          line.className = promoClass(promo);
+          line.style.left = `${positionFor(promo.date, range)}%`;
+          barCell.appendChild(line);
+        });
+
+        item.tasks
+          .filter((task) => taskEndDate(task) >= range.start && taskStartDate(task) <= range.end)
+          .forEach((task, taskIndex) => {
+            const visibleStart = new Date(Math.max(taskStartDate(task), range.start));
+            const top = 18 + task.lane * 32;
+            const segmentWidth = widthFor(task, range);
+            const pixelWidth = (segmentWidth / 100) * parseFloat(getComputedStyle(board).getPropertyValue("--timeline-width"));
+            const left = `${((visibleStart - range.start) / dayMs) / range.totalDays * 100}%`;
+            const segment = document.createElement("div");
+            segment.className = `segment ${colors[item.market] || "blue"}`;
+            segment.style.background = segmentColor(item.market, taskIndex);
+            if (pixelWidth < 54) {
+              segment.classList.add("milestone");
+            }
+            if (pixelWidth < 54) {
+              segment.classList.add("compact");
+            }
+            if (pixelWidth < 22) {
+              segment.classList.add("micro");
+            }
+            segment.style.top = `${top}px`;
+            segment.style.left = left;
+            segment.style.width = `${segmentWidth}%`;
+            segment.title = `${task.name}: ${task.startNode} ${task.start} 至 ${task.endNode} ${task.end}`;
+            segment.textContent = segmentLabel(task, pixelWidth);
+
+            if (task.start) {
+              const dateLabel = document.createElement("div");
+              dateLabel.className = "segment-date-label";
+              dateLabel.style.top = `${Math.max(2, top - 16)}px`;
+              dateLabel.style.left = left;
+              dateLabel.textContent = formatCn(task.start);
+              dateLabel.title = `开始时间 ${formatGanttDate(task.start)}`;
+              barCell.appendChild(dateLabel);
+            }
+
+            barCell.appendChild(segment);
+          });
+
+        rows.append(productCell, barCell);
+      });
+    }
+
+    function buildPromos(range) {
+      promoGrid.innerHTML = "";
+      const promoRange = range || {
+        start: parseDate(isoDate(new Date().getFullYear(), 1, 1)),
+        end: parseDate(isoDate(new Date().getFullYear(), 12, 31))
+      };
+      if (!range) {
+        refreshPromos(promoRange);
+      }
+
+      const selectedMarket = marketFilter.value;
+      const grouped = {};
+      promos
+        .filter((promo) => selectedMarket === "all" || promo.country === selectedMarket)
+        .filter((promo) => parseDate(promo.date) >= promoRange.start && parseDate(promo.date) <= promoRange.end)
+        .forEach((promo) => {
+          grouped[promo.country] ||= [];
+          grouped[promo.country].push(promo);
+        });
+
+      const countries = selectedMarket === "all" ? ["中国", "美国", "日本", "韩国"] : [selectedMarket];
+      countries.forEach((country) => {
+        const card = document.createElement("div");
+        card.className = "promo-card";
+        const items = grouped[country] || [];
+        const year = getPromoYear();
+        const pendingPrimeDay = country === "美国" && !promoOverrides.primeDay[year];
+        card.innerHTML = `
+          <div class="promo-country">${country}</div>
+          ${items.length ? items.map((item) => `
+            <div class="promo-item"><span>${item.name}</span><strong>${formatCn(item.date)}</strong></div>
+          `).join("") : '<div class="promo-item"><span>当前范围无节点</span><strong>-</strong></div>'}
+          ${pendingPrimeDay ? '<div class="promo-item"><span>Prime Day</span><strong>待更新</strong></div>' : ""}
+        `;
+        promoGrid.appendChild(card);
+      });
+    }
+
+    function render() {
+      const range = getRange();
+      refreshPromos(range);
+      buildHeader(range);
+      buildRows(range);
+      buildPromos(range);
+    }
+
+    startInput.addEventListener("change", () => {
+      pushHistory();
+      render();
+      persistState();
+    });
+    endInput.addEventListener("change", () => {
+      pushHistory();
+      render();
+      persistState();
+    });
+    marketFilter.addEventListener("change", () => {
+      pushHistory();
+      exportSelectedProducts = [];
+      autoFitRangeForMarket();
+      render();
+      persistState("已按地区自动调整时间范围");
+    });
+      themePicker.addEventListener("change", () => {
+      pushHistory();
+      themePreferenceSet = true;
+      document.documentElement.dataset.theme = themePicker.value;
+      render();
+      persistState();
+    });
+    zoomRange.addEventListener("input", () => {
+      pushHistory();
+      zoomPreferenceSet = true;
+      render();
+      persistState();
+    });
+    addTaskBtn.addEventListener("click", () => {
+      pushHistory();
+      const tasks = collectEditorTasks();
+      tasks.push(blankTask(tasks.length));
+      expandedTaskIndex = tasks.length - 1;
+      renderTaskList(tasks);
+      taskList.scrollTop = taskList.scrollHeight;
+      persistState();
+    });
+    copyTasksBtn.addEventListener("click", copyTasksFromProduct);
+    newProductBtn.addEventListener("click", beginNewProduct);
+    taskList.addEventListener("click", (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) {
+        return;
+      }
+
+      if (target.dataset.action === "toggle-task") {
+        const box = target.closest(".task-box");
+        const nextIndex = Number(box?.dataset.taskIndex ?? 0);
+        expandedTaskIndex = expandedTaskIndex === nextIndex ? -1 : nextIndex;
+        renderTaskList(collectEditorTasks());
+        persistState();
+        return;
+      }
+
+      if (target.dataset.action === "reset-task") {
+        const tasks = collectEditorTasks();
+        const box = target.closest(".task-box");
+        const index = Number(box?.dataset.taskIndex ?? -1);
+        if (index < 0) {
+          return;
+        }
+        pushHistory();
+        tasks[index] = blankTask(index);
+        expandedTaskIndex = index;
+        renderTaskList(tasks);
+        persistState("已重置当前节点");
+        return;
+      }
+
+      if (target.dataset.action !== "delete-task") {
+        return;
+      }
+
+      const tasks = collectEditorTasks();
+      const box = target.closest(".task-box");
+      const index = Number(box?.dataset.taskIndex ?? -1);
+      if (tasks.length <= 1) {
+        return;
+      }
+      pushHistory();
+      tasks.splice(index, 1);
+      expandedTaskIndex = Math.max(0, Math.min(expandedTaskIndex, tasks.length - 1));
+      renderTaskList(tasks);
+      persistState();
+    });
+    taskList.addEventListener("change", (event) => {
+      const target = event.target;
+      if (target instanceof HTMLSelectElement && target.dataset.field === "name") {
+        pushHistory();
+        applyTaskTemplate(target);
+        renderTaskList(collectEditorTasks());
+        persistState("已更新节点名称");
+        return;
+      }
+
+      if (!(target instanceof HTMLInputElement) || target.dataset.field !== "start") {
+        return;
+      }
+      pushHistory();
+      syncTaskEndYear(target);
+      persistState("已同步结束年份");
+    });
+    productList.addEventListener("click", (event) => {
+      const target = event.target;
+      if (target instanceof HTMLInputElement && target.classList.contains("product-export-check")) {
+        toggleExportProduct(target.dataset.productExport || "", target.checked);
+        persistState("已更新复制范围勾选");
+        return;
+      }
+      if (!(target instanceof HTMLElement)) {
+        return;
+      }
+      const button = target.closest(".product-item");
+      if (!button) {
+        return;
+      }
+      loadProductToEditor(Number(button.dataset.productIndex));
+    });
+    productList.addEventListener("dragstart", (event) => {
+      const row = event.target instanceof HTMLElement ? event.target.closest(".product-item-row") : null;
+      if (!row) {
+        return;
+      }
+      draggedProductIndex = Number(row.dataset.productRowIndex);
+      row.classList.add("dragging");
+      event.dataTransfer.effectAllowed = "move";
+      event.dataTransfer.setData("text/plain", String(draggedProductIndex));
+    });
+    productList.addEventListener("dragover", (event) => {
+      const row = event.target instanceof HTMLElement ? event.target.closest(".product-item-row") : null;
+      if (!row) {
+        return;
+      }
+      event.preventDefault();
+      row.classList.add("drag-over");
+      event.dataTransfer.dropEffect = "move";
+    });
+    productList.addEventListener("dragleave", (event) => {
+      const row = event.target instanceof HTMLElement ? event.target.closest(".product-item-row") : null;
+      row?.classList.remove("drag-over");
+    });
+    productList.addEventListener("drop", (event) => {
+      const row = event.target instanceof HTMLElement ? event.target.closest(".product-item-row") : null;
+      if (!row) {
+        return;
+      }
+      event.preventDefault();
+      productList.querySelectorAll(".product-item-row").forEach((item) => item.classList.remove("drag-over", "dragging"));
+      const toIndex = Number(row.dataset.productRowIndex);
+      moveProduct(draggedProductIndex, toIndex);
+      draggedProductIndex = -1;
+    });
+    productList.addEventListener("dragend", () => {
+      productList.querySelectorAll(".product-item-row").forEach((item) => item.classList.remove("drag-over", "dragging"));
+      draggedProductIndex = -1;
+    });
+    rows.addEventListener("dragstart", (event) => {
+      const cell = event.target instanceof HTMLElement ? event.target.closest(".product-cell") : null;
+      if (!cell?.dataset.ganttProductIndex) {
+        return;
+      }
+      draggedProductIndex = Number(cell.dataset.ganttProductIndex);
+      cell.classList.add("dragging");
+      event.dataTransfer.effectAllowed = "move";
+      event.dataTransfer.setData("text/plain", String(draggedProductIndex));
+    });
+    rows.addEventListener("dragover", (event) => {
+      const cell = event.target instanceof HTMLElement ? event.target.closest(".product-cell") : null;
+      if (!cell?.dataset.ganttProductIndex) {
+        return;
+      }
+      event.preventDefault();
+      cell.classList.add("drag-over");
+      event.dataTransfer.dropEffect = "move";
+    });
+    rows.addEventListener("dragleave", (event) => {
+      const cell = event.target instanceof HTMLElement ? event.target.closest(".product-cell") : null;
+      cell?.classList.remove("drag-over");
+    });
+    rows.addEventListener("drop", (event) => {
+      const cell = event.target instanceof HTMLElement ? event.target.closest(".product-cell") : null;
+      if (!cell?.dataset.ganttProductIndex) {
+        return;
+      }
+      event.preventDefault();
+      rows.querySelectorAll(".product-cell").forEach((item) => item.classList.remove("drag-over", "dragging"));
+      const toIndex = Number(cell.dataset.ganttProductIndex);
+      moveProduct(draggedProductIndex, toIndex);
+      draggedProductIndex = -1;
+    });
+    rows.addEventListener("dragend", () => {
+      rows.querySelectorAll(".product-cell").forEach((item) => item.classList.remove("drag-over", "dragging"));
+      draggedProductIndex = -1;
+    });
+    saveProductBtn.addEventListener("click", saveEditorProduct);
+    clearEditorBtn.addEventListener("click", () => {
+      pushHistory();
+      clearEditor();
+      render();
+      persistState();
+    });
+    deleteProductBtn.addEventListener("click", deleteCurrentProduct);
+    formProductType.addEventListener("change", () => {
+      renderParentOptions(formProductName.value, formParentProduct.value);
+      persistState();
+    });
+    formProductName.addEventListener("change", () => {
+      renderParentOptions(formProductName.value, formParentProduct.value);
+      renderCopyTaskSources();
+      persistState();
+    });
+    refreshPromosBtn.addEventListener("click", () => {
+      render();
+      persistState();
+    });
+    toggleEditorBtn.addEventListener("click", () => {
+      pushHistory();
+      editorCollapsed = !editorCollapsed;
+      syncEditorVisibility();
+      persistState();
+    });
+    undoBtn.addEventListener("click", undo);
+    redoBtn.addEventListener("click", redo);
+    exportBtn.addEventListener("click", exportData);
+    importBtn.addEventListener("click", () => importFileInput.click());
+    copyGanttBtn.addEventListener("click", copyGanttImage);
+    importFileInput.addEventListener("change", () => {
+      const [file] = importFileInput.files || [];
+      if (file) {
+        importData(file);
+      }
+      importFileInput.value = "";
+    });
+    zoomChips.forEach((chip) => {
+      chip.addEventListener("click", () => {
+        pushHistory();
+        zoomPreferenceSet = true;
+        zoomRange.value = chip.dataset.zoom;
+        render();
+        persistState();
+      });
+    });
+    resetBtn.addEventListener("click", () => {
+      pushHistory();
+      startInput.value = "2026-04-01";
+      endInput.value = "2026-12-31";
+      marketFilter.value = "all";
+      themePicker.value = "sky";
+      themePreferenceSet = false;
+      document.documentElement.dataset.theme = "sky";
+      zoomRange.value = "2";
+      zoomPreferenceSet = false;
+      editorCollapsed = false;
+      syncEditorVisibility();
+      render();
+      persistState("已重置视图，产品数据未清空");
+    });
+
+    document.documentElement.dataset.theme = themePicker.value;
+    syncEditorVisibility();
+    if (!loadPersistedState()) {
+      clearEditor();
+      render();
+      persistState("当前浏览器暂无历史数据");
+    }
+    updateHistoryButtons();
+  </script>
+</body>
+</html>

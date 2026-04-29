@@ -1,0 +1,7 @@
+interface:
+  display_name: "Product Launch Planning"
+  short_description: "Product planning and launch milestone workflow"
+  default_prompt: "Use $product-launch-planning to create a product plan, launch milestone map, and execution checklist."
+
+policy:
+  allow_implicit_invocation: true
