@@ -1583,6 +1583,26 @@
       }
     }
 
+    async function loadBundledData() {
+      try {
+        const response = await fetch("product-data.json", { cache: "no-store" });
+        if (!response.ok) {
+          return false;
+        }
+        const payload = await response.json();
+        const nextState = payload && payload.state ? payload.state : payload;
+        if (!nextState || !Array.isArray(nextState.products)) {
+          return false;
+        }
+        applyState(nextState);
+        localStorage.setItem(storageKey, JSON.stringify(nextState));
+        setStorageNote("已从仓库数据恢复产品规划");
+        return true;
+      } catch (error) {
+        return false;
+      }
+    }
+
     function exportData() {
       const payload = {
         version: 1,
@@ -2893,14 +2913,18 @@
       persistState("已重置视图，产品数据未清空");
     });
 
-    document.documentElement.dataset.theme = themePicker.value;
-    syncEditorVisibility();
-    if (!loadPersistedState()) {
-      clearEditor();
-      render();
-      persistState("当前浏览器暂无历史数据");
+    async function initializeApp() {
+      document.documentElement.dataset.theme = themePicker.value;
+      syncEditorVisibility();
+      if (!loadPersistedState() && !(await loadBundledData())) {
+        clearEditor();
+        render();
+        persistState("当前浏览器暂无历史数据");
+      }
+      updateHistoryButtons();
     }
-    updateHistoryButtons();
+
+    initializeApp();
   </script>
 </body>
 </html>
