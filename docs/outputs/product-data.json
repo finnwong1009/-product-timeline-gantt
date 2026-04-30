@@ -1,0 +1,643 @@
+{
+  "version": 1,
+  "exportedAt": "2026-04-30T03:52:07.913Z",
+  "source": "chrome-localStorage:product-timeline-gantt-state-v1",
+  "state": {
+    "products": [
+      {
+        "name": "pogo core",
+        "market": "中国",
+        "phase": "研发中",
+        "productType": "主产品",
+        "parentProduct": "",
+        "attribute": "",
+        "note": "",
+        "tasks": [
+          {
+            "name": "kol试玩",
+            "lane": 0,
+            "start": "2026-09-25",
+            "end": "2026-11-01",
+            "startNode": "开始",
+            "endNode": "结束"
+          },
+          {
+            "name": "首销发货",
+            "lane": 0,
+            "start": "2026-11-01",
+            "end": "2027-01-01",
+            "startNode": "开始",
+            "endNode": "结束"
+          },
+          {
+            "name": "立项",
+            "lane": 0,
+            "start": "2026-04-01",
+            "end": "2026-09-25",
+            "startNode": "",
+            "endNode": ""
+          }
+        ],
+        "price": "449",
+        "priceBand": ""
+      },
+      {
+        "name": "pogo手机支架",
+        "market": "中国",
+        "phase": "研发中",
+        "productType": "配件",
+        "parentProduct": "pogo core",
+        "attribute": "",
+        "note": "",
+        "tasks": [
+          {
+            "name": "kol试玩",
+            "lane": 0,
+            "start": "2026-09-25",
+            "end": "2026-11-01",
+            "startNode": "开始",
+            "endNode": "结束"
+          },
+          {
+            "name": "首销发货",
+            "lane": 0,
+            "start": "2026-11-01",
+            "end": "2027-01-01",
+            "startNode": "开始",
+            "endNode": "结束"
+          },
+          {
+            "name": "立项",
+            "lane": 0,
+            "start": "2026-04-01",
+            "end": "2026-09-25",
+            "startNode": "",
+            "endNode": ""
+          }
+        ]
+      },
+      {
+        "name": "pogo 掌机",
+        "market": "中国",
+        "phase": "研发中",
+        "productType": "配件",
+        "parentProduct": "pogo core",
+        "attribute": "",
+        "note": "",
+        "tasks": [
+          {
+            "name": "KOL试玩",
+            "lane": 0,
+            "start": "2026-10-25",
+            "end": "2026-12-01",
+            "startNode": "开始",
+            "endNode": "结束"
+          },
+          {
+            "name": "首销发货",
+            "lane": 0,
+            "start": "2026-12-01",
+            "end": "2027-02-24",
+            "startNode": "开始",
+            "endNode": "结束"
+          },
+          {
+            "name": "立项",
+            "lane": 0,
+            "start": "2026-04-01",
+            "end": "2026-10-25",
+            "startNode": "",
+            "endNode": ""
+          }
+        ]
+      },
+      {
+        "name": "pogo core us",
+        "market": "美国",
+        "phase": "研发中",
+        "productType": "地区改款",
+        "parentProduct": "pogo core",
+        "attribute": "功能不变 地区适配",
+        "note": "",
+        "tasks": [
+          {
+            "name": "kol试玩",
+            "lane": 0,
+            "start": "2026-11-23",
+            "end": "2027-02-01",
+            "startNode": "开始",
+            "endNode": "结束"
+          },
+          {
+            "name": "首销发货",
+            "lane": 0,
+            "start": "2027-01-01",
+            "end": "2027-03-01",
+            "startNode": "开始",
+            "endNode": "结束"
+          }
+        ]
+      },
+      {
+        "name": "pogo手机支架",
+        "market": "美国",
+        "phase": "研发中",
+        "productType": "配件",
+        "parentProduct": "pogo core us",
+        "attribute": "",
+        "note": "",
+        "tasks": [
+          {
+            "name": "kol试玩",
+            "lane": 0,
+            "start": "2026-11-23",
+            "end": "2027-02-01",
+            "startNode": "开始",
+            "endNode": "结束"
+          },
+          {
+            "name": "首销发货",
+            "lane": 0,
+            "start": "2027-01-01",
+            "end": "2027-03-01",
+            "startNode": "开始",
+            "endNode": "结束"
+          }
+        ]
+      },
+      {
+        "name": "pogo掌机",
+        "market": "美国",
+        "phase": "研发中",
+        "productType": "配件",
+        "parentProduct": "pogo core us",
+        "attribute": "",
+        "note": "",
+        "tasks": [
+          {
+            "name": "kol试玩",
+            "lane": 0,
+            "start": "2026-11-23",
+            "end": "2027-02-01",
+            "startNode": "开始",
+            "endNode": "结束"
+          },
+          {
+            "name": "首销发货",
+            "lane": 0,
+            "start": "2027-02-15",
+            "end": "2027-05-01",
+            "startNode": "开始",
+            "endNode": "结束"
+          }
+        ]
+      },
+      {
+        "name": "pogo core 2",
+        "market": "中国",
+        "phase": "规划中",
+        "productType": "主产品",
+        "parentProduct": "",
+        "attribute": "",
+        "note": "",
+        "tasks": [
+          {
+            "name": "KOL试玩",
+            "lane": 0,
+            "start": "2027-09-01",
+            "end": "2027-10-30",
+            "startNode": "开始",
+            "endNode": "结束"
+          },
+          {
+            "name": "首销发货",
+            "lane": 0,
+            "start": "2027-11-01",
+            "end": "2028-01-01",
+            "startNode": "开始",
+            "endNode": "结束"
+          },
+          {
+            "name": "立项",
+            "lane": 0,
+            "start": "2027-04-01",
+            "end": "2027-09-01",
+            "startNode": "",
+            "endNode": ""
+          }
+        ]
+      },
+      {
+        "name": "pogo core 2 us",
+        "market": "美国",
+        "phase": "规划中",
+        "productType": "地区改款",
+        "parentProduct": "pogo core 2",
+        "attribute": "",
+        "note": "",
+        "tasks": [
+          {
+            "name": "KOL试玩",
+            "lane": 0,
+            "start": "2027-09-20",
+            "end": "2027-10-31",
+            "startNode": "开始",
+            "endNode": "结束"
+          },
+          {
+            "name": "首销发货",
+            "lane": 0,
+            "start": "2027-11-01",
+            "end": "2028-01-01",
+            "startNode": "开始",
+            "endNode": "结束"
+          }
+        ]
+      },
+      {
+        "name": "pogo桌面摆件-衣柜",
+        "market": "中国",
+        "phase": "规划中",
+        "productType": "配件",
+        "parentProduct": "pogo core",
+        "attribute": "",
+        "note": "",
+        "tasks": [
+          {
+            "name": "KOL试玩",
+            "lane": 0,
+            "start": "2027-02-01",
+            "end": "2027-02-28",
+            "startNode": "开始",
+            "endNode": "结束"
+          },
+          {
+            "name": "首销发货",
+            "lane": 0,
+            "start": "2027-03-01",
+            "end": "2027-06-01",
+            "startNode": "开始",
+            "endNode": "结束"
+          },
+          {
+            "name": "立项",
+            "lane": 0,
+            "start": "2026-11-01",
+            "end": "2027-02-01",
+            "startNode": "",
+            "endNode": ""
+          }
+        ]
+      },
+      {
+        "name": "pogo桌面摆件-衣柜",
+        "market": "美国",
+        "phase": "规划中",
+        "productType": "配件",
+        "parentProduct": "pogo core us",
+        "attribute": "",
+        "note": "",
+        "tasks": [
+          {
+            "name": "KOL试玩",
+            "lane": 0,
+            "start": "2027-04-01",
+            "end": "2027-04-30",
+            "startNode": "开始",
+            "endNode": "结束"
+          },
+          {
+            "name": "首销发货",
+            "lane": 0,
+            "start": "2027-05-01",
+            "end": "2027-08-01",
+            "startNode": "开始",
+            "endNode": "结束"
+          }
+        ]
+      },
+      {
+        "name": "pogo core kr",
+        "market": "韩国",
+        "phase": "研发中",
+        "productType": "地区改款",
+        "parentProduct": "pogo core",
+        "attribute": "",
+        "note": "",
+        "tasks": [
+          {
+            "name": "KOL试玩",
+            "lane": 0,
+            "start": "2027-02-15",
+            "end": "2027-03-01",
+            "startNode": "",
+            "endNode": ""
+          },
+          {
+            "name": "首销发货",
+            "lane": 0,
+            "start": "2027-03-01",
+            "end": "2027-06-01",
+            "startNode": "",
+            "endNode": ""
+          }
+        ]
+      },
+      {
+        "name": "pogo core 2",
+        "market": "韩国",
+        "phase": "规划中",
+        "productType": "地区改款",
+        "parentProduct": "pogo core 2",
+        "attribute": "",
+        "note": "",
+        "tasks": [
+          {
+            "name": "KOL试玩",
+            "lane": 0,
+            "start": "2027-10-01",
+            "end": "2027-11-30",
+            "startNode": "",
+            "endNode": ""
+          },
+          {
+            "name": "首销发货",
+            "lane": 0,
+            "start": "2027-12-01",
+            "end": "2028-03-01",
+            "startNode": "",
+            "endNode": ""
+          }
+        ]
+      },
+      {
+        "name": "pogo core jp",
+        "market": "日本",
+        "phase": "研发中",
+        "productType": "地区改款",
+        "parentProduct": "pogo core",
+        "attribute": "",
+        "note": "",
+        "tasks": [
+          {
+            "name": "KOL试玩",
+            "lane": 0,
+            "start": "2027-01-15",
+            "end": "2027-03-01",
+            "startNode": "",
+            "endNode": ""
+          },
+          {
+            "name": "首销发货",
+            "lane": 0,
+            "start": "2027-03-01",
+            "end": "2027-06-01",
+            "startNode": "",
+            "endNode": ""
+          }
+        ]
+      },
+      {
+        "name": "pogo 手机支架",
+        "market": "日本",
+        "phase": "研发中",
+        "productType": "配件",
+        "parentProduct": "pogo core jp",
+        "attribute": "",
+        "note": "",
+        "tasks": [
+          {
+            "name": "KOL试玩",
+            "lane": 0,
+            "start": "2027-01-15",
+            "end": "2027-03-01",
+            "startNode": "",
+            "endNode": ""
+          },
+          {
+            "name": "首销发货",
+            "lane": 0,
+            "start": "2027-03-01",
+            "end": "2027-06-01",
+            "startNode": "",
+            "endNode": ""
+          }
+        ]
+      },
+      {
+        "name": "pogo手机支架",
+        "market": "韩国",
+        "phase": "研发中",
+        "productType": "配件",
+        "parentProduct": "pogo core kr",
+        "attribute": "",
+        "note": "",
+        "tasks": [
+          {
+            "name": "KOL试玩",
+            "lane": 0,
+            "start": "2027-01-15",
+            "end": "2027-03-01",
+            "startNode": "",
+            "endNode": ""
+          },
+          {
+            "name": "首销发货",
+            "lane": 0,
+            "start": "2027-03-01",
+            "end": "2027-06-01",
+            "startNode": "",
+            "endNode": ""
+          }
+        ]
+      },
+      {
+        "name": "pogo 掌机",
+        "market": "韩国",
+        "phase": "研发中",
+        "productType": "配件",
+        "parentProduct": "pogo core kr",
+        "attribute": "",
+        "note": "",
+        "tasks": [
+          {
+            "name": "KOL试玩",
+            "lane": 0,
+            "start": "2027-01-15",
+            "end": "2027-03-01",
+            "startNode": "",
+            "endNode": ""
+          },
+          {
+            "name": "首销发货",
+            "lane": 0,
+            "start": "2027-03-01",
+            "end": "2027-06-01",
+            "startNode": "",
+            "endNode": ""
+          }
+        ]
+      },
+      {
+        "name": "pogo掌机",
+        "market": "日本",
+        "phase": "研发中",
+        "productType": "配件",
+        "parentProduct": "pogo core jp",
+        "attribute": "",
+        "note": "",
+        "tasks": [
+          {
+            "name": "KOL试玩",
+            "lane": 0,
+            "start": "2027-01-15",
+            "end": "2027-03-01",
+            "startNode": "",
+            "endNode": ""
+          },
+          {
+            "name": "首销发货",
+            "lane": 0,
+            "start": "2027-03-01",
+            "end": "2027-06-01",
+            "startNode": "",
+            "endNode": ""
+          }
+        ]
+      },
+      {
+        "name": "pogo桌面摆件-衣柜",
+        "market": "日本",
+        "phase": "规划中",
+        "productType": "配件",
+        "parentProduct": "pogo core jp",
+        "attribute": "",
+        "note": "",
+        "tasks": [
+          {
+            "name": "KOL试玩",
+            "lane": 0,
+            "start": "2027-04-01",
+            "end": "2027-04-30",
+            "startNode": "开始",
+            "endNode": "结束"
+          },
+          {
+            "name": "首销发货",
+            "lane": 0,
+            "start": "2027-05-01",
+            "end": "2027-08-01",
+            "startNode": "开始",
+            "endNode": "结束"
+          }
+        ]
+      },
+      {
+        "name": "pogo桌面摆件-衣柜",
+        "market": "韩国",
+        "phase": "规划中",
+        "productType": "配件",
+        "parentProduct": "pogo core kr",
+        "attribute": "",
+        "note": "",
+        "tasks": [
+          {
+            "name": "KOL试玩",
+            "lane": 0,
+            "start": "2027-04-01",
+            "end": "2027-04-30",
+            "startNode": "开始",
+            "endNode": "结束"
+          },
+          {
+            "name": "首销发货",
+            "lane": 0,
+            "start": "2027-05-01",
+            "end": "2027-08-01",
+            "startNode": "开始",
+            "endNode": "结束"
+          }
+        ]
+      },
+      {
+        "name": "pogo core 2",
+        "market": "日本",
+        "phase": "规划中",
+        "productType": "地区改款",
+        "parentProduct": "pogo core 2",
+        "attribute": "",
+        "note": "",
+        "tasks": [
+          {
+            "name": "KOL试玩",
+            "lane": 0,
+            "start": "2027-10-01",
+            "end": "2027-11-30",
+            "startNode": "",
+            "endNode": ""
+          },
+          {
+            "name": "首销发货",
+            "lane": 0,
+            "start": "2027-12-01",
+            "end": "2028-03-01",
+            "startNode": "",
+            "endNode": ""
+          }
+        ]
+      }
+    ],
+    "editorTargetIndex": 0,
+    "expandedTaskIndex": 2,
+    "filters": {
+      "startDate": "2026-03-30",
+      "endDate": "2027-12-30",
+      "market": "中国",
+      "theme": "sky",
+      "themePreferenceSet": false,
+      "zoomPreferenceSet": true,
+      "zoom": "2"
+    },
+    "ui": {
+      "editorCollapsed": false,
+      "exportSelectedProducts": []
+    },
+    "editor": {
+      "name": "pogo core",
+      "market": "中国",
+      "phase": "研发中",
+      "price": "449",
+      "priceBand": "",
+      "productType": "主产品",
+      "parentProduct": "",
+      "attribute": "",
+      "note": "",
+      "tasks": [
+        {
+          "name": "kol试玩",
+          "lane": 0,
+          "start": "2026-09-25",
+          "end": "2026-11-01",
+          "startNode": "开始",
+          "endNode": "结束"
+        },
+        {
+          "name": "首销发货",
+          "lane": 0,
+          "start": "2026-11-01",
+          "end": "2027-01-01",
+          "startNode": "开始",
+          "endNode": "结束"
+        },
+        {
+          "name": "立项",
+          "lane": 0,
+          "start": "2026-04-01",
+          "end": "2026-09-25",
+          "startNode": "",
+          "endNode": ""
+        }
+      ]
+    }
+  }
+}
