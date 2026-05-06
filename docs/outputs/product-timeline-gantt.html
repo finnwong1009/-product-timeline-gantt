@@ -1273,6 +1273,11 @@
       return `${date.getMonth() + 1}/${date.getDate()}`;
     }
 
+    function formatPromoDate(value) {
+      const date = parseDate(value);
+      return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
+    }
+
     function formatGanttDate(value) {
       const date = parseDate(value);
       if (Number.isNaN(date.getTime())) {
@@ -2470,7 +2475,7 @@
         const showMinorLabel = promo.important || dayWidth >= 10;
         label.className = `event-label ${showMinorLabel ? "" : "minor"}`.trim();
         label.style.left = `${left}%`;
-        label.textContent = showMinorLabel ? promo.name : formatCn(promo.date);
+        label.textContent = showMinorLabel ? `${parseDate(promo.date).getFullYear()} ${promo.name}` : formatPromoDate(promo.date);
         dayRow.append(line, label);
       });
     }
@@ -2514,14 +2519,6 @@
           visible.push(...children);
         }
       });
-      visible.sort((a, b) => {
-        const bandDiff = priceBandRank(a) - priceBandRank(b);
-        if (bandDiff !== 0) {
-          return bandDiff;
-        }
-        return Number(b.price || 0) - Number(a.price || 0);
-      });
-
       rangeMeta.textContent = `${formatDate(range.start)} 至 ${formatDate(range.end)}，${visible.length} 个产品`;
 
       if (!visible.length) {
@@ -2637,7 +2634,7 @@
         card.innerHTML = `
           <div class="promo-country">${country}</div>
           ${items.length ? items.map((item) => `
-            <div class="promo-item"><span>${item.name}</span><strong>${formatCn(item.date)}</strong></div>
+            <div class="promo-item"><span>${parseDate(item.date).getFullYear()} ${item.name}</span><strong>${formatPromoDate(item.date)}</strong></div>
           `).join("") : '<div class="promo-item"><span>当前范围无节点</span><strong>-</strong></div>'}
           ${pendingPrimeDay ? '<div class="promo-item"><span>Prime Day</span><strong>待更新</strong></div>' : ""}
         `;
